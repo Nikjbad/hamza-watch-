@@ -532,6 +532,67 @@
     .checkout-form input,.checkout-form textarea{font-size:16px;}
   }
 
+  /* Final mobile layout safeguards */
+  @media (max-width:768px){
+    html,body{width:100%; max-width:100%; overflow-x:hidden;}
+    .container,.nav-inner,.hero-grid{max-width:100%;}
+    .nav-inner{min-width:0;}
+    .logo{min-width:0; white-space:nowrap;}
+    .nav-right{min-width:0; flex-shrink:1;}
+    .nav-right > .btn-primary,
+    .nav-right > a.icon-btn:first-child{display:none;}
+    .nav-burger{display:flex; flex-shrink:0;}
+    .nav-links{width:min(86vw,320px); max-width:320px; overflow-y:auto;}
+    .hero-grid > *, .flash-grid > *, .why-grid > *, .contact-grid > *, .order-cta > *{min-width:0; max-width:100%;}
+    .hero h1 br{display:none;}
+    .hero-badge{max-width:100%; white-space:normal;}
+    .hero-ctas{width:100%;}
+    .hero-stats{width:100%;}
+    .trust-item{min-width:0;}
+    .flash-card{display:flex; flex-direction:column; align-items:stretch; gap:22px; padding:26px 20px;}
+    .flash-card .watch-icon-wrap{width:min(100%,220px); height:180px; margin:0 auto;}
+    .flash-card > div:last-child{min-width:0;}
+    .flash-card > div:last-child > div:last-child{display:flex; flex-direction:column; gap:10px;}
+    .flash-card > div:last-child > div:last-child .btn{width:100%;}
+    .flash-timer{width:100%; justify-content:center; gap:8px;}
+    .flash-timer .t{flex:1; min-width:0; padding:12px 8px;}
+    .flash-timer .t b{font-size:24px;}
+    .collections,.product-grid,.why-grid,.reviews-track,.steps,.contact-grid,.footer-grid{width:100%;}
+    .coll-card{min-width:0;}
+    .p-card,.review-card,.step-card,.contact-card{min-width:0;}
+    .p-name,.p-cat,.p-rating span,.spec-row .v,.contact-card span{overflow-wrap:anywhere;}
+    .p-price{flex-wrap:wrap; gap:5px 8px;}
+    .p-actions{flex-direction:column; width:100%;}
+    .p-actions .btn{width:100%;}
+    .why-visual{max-width:100%;}
+    .order-cta-actions{width:100%;}
+    .footer-bottom span{max-width:100%; overflow-wrap:anywhere;}
+    .cart-drawer{right:0; width:100vw; max-width:100vw;}
+    .cart-line-info{min-width:0;}
+    .cart-line-info b{overflow-wrap:anywhere;}
+  }
+
+  @media (max-width:400px){
+    .nav-inner{padding-left:12px; padding-right:12px;}
+    .container{padding-left:12px; padding-right:12px;}
+    .hero-grid{padding-left:12px; padding-right:12px;}
+    .hero h1{font-size:clamp(32px,11vw,42px);}
+    .hero-stats{gap:16px 8px;}
+    .hero-stats div b{font-size:22px;}
+    .hero-stats div span{font-size:9px; letter-spacing:0;}
+    .flash-card{padding-left:14px; padding-right:14px;}
+    .flash-tag{left:18px; font-size:9px;}
+    .flash-price .now{font-size:28px;}
+    .flash-card .watch-icon-wrap{height:150px;}
+    .coll-card{height:260px; padding:18px;}
+    .coll-card h3{font-size:23px;}
+    .coll-card p{font-size:12.5px; max-width:190px;}
+    .filter-bar{overflow-x:auto; flex-wrap:nowrap; padding-bottom:4px;}
+    .filter-bar .chip{flex-shrink:0;}
+    .faq-q{gap:12px;}
+    .faq-q h4{font-size:15px;}
+  }
+
   @media (prefers-reduced-motion: reduce){
     *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
   }
