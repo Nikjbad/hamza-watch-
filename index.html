@@ -96,6 +96,7 @@
   .nav-links{display:flex;gap:32px;}
   .nav-links a{color:rgba(255,255,255,0.78);font-size:14.5px;font-weight:500;transition:color .2s;}
   .nav-links a:hover{color:#fff;}
+  .nav-close{display:none;}
   .nav-right{display:flex;align-items:center;gap:14px;}
   .icon-btn{
     position:relative; width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
@@ -433,6 +434,8 @@
     }
     .nav-links.open{transform:translateX(0);}
     .nav-links a{padding:16px 0; border-bottom:1px solid var(--line-dark); font-size:16px;}
+    .nav-close{display:flex; align-items:center; justify-content:center; align-self:flex-end; width:40px; height:40px; margin-bottom:22px; border:1px solid var(--line-dark); border-radius:50%; color:#fff; font-size:28px; line-height:1;}
+    .nav-close:hover{background:rgba(255,255,255,.12);}
   }
   @media (max-width:640px){
     .product-grid{grid-template-columns:1fr;}
@@ -619,6 +622,7 @@
   <div class="nav-inner">
     <a href="#" class="logo"><span class="dot"></span> HAMZA</a>
     <nav class="nav-links" id="navLinks">
+      <button class="nav-close" id="navClose" type="button" aria-label="Close menu">&times;</button>
       <a href="#collections">Collections</a>
       <a href="#bestsellers">Best Sellers</a>
       <a href="#flashsale">Deal of the Day</a>
@@ -988,10 +992,10 @@ function renderGrid(filter='all'){
         p2:'https://img4.dhresource.com/webp/m/0x0/f3/albu/jc/z/21/d73bf664-1ea1-4718-b263-5f82562e338a.jpg',
         p3:'https://content.thewosgroup.com/productimage/17532560/17532560_2.jpg?impolicy=lister',
         p4:'https://images.stockcake.com/public/8/4/5/845e52db-963d-4b50-97a8-85aa37ad4b2b/luxury-chronograph-timepiece-stockcake.jpg',
-        p5:'https://tse2.mm.bing.net/th/id/OIP._OJwhSiC44tmvzj-DPtigwHaHa?r=0&pid=Api&h=220&P=0',
-        p6:'https://www.hgp-watches.com/cdn/shop/files/diving-watch-monnin-case-diver-200-automatic-black-dial-blue-bezel-blue-tropic-rally-rubber-strap-hgp-23-d2a-001-04-rb2-blu.jpg?v=1700218501',
+        p5:'https://packersshoppro.com/wp-content/uploads/2020/08/Aviator-Watches.jpg',
+        p6:'https://consumer.huawei.com/dam/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-gt6/list46mm-green.png',
         p7:'https://sedgars.com/cdn/shop/files/s-l960_886ad8a7-2ff3-41f1-9e74-fab863bd55b7.webp?v=1772104966',
-        p8:'https://tse3.mm.bing.net/th/id/OIP.oxHA3W_bdPU3F786IRD5OQHaHa?r=0&pid=Api&h=220&P=0'
+        p8:'https://www.datocms-assets.com/99008/1697469125-epic_x_black-red.webp'
       })[p.id]}" width="150" height="150" alt="${p.name} watch"></div>
       <div class="p-cat">${p.cat}</div>
       <div class="p-name">${p.name}</div>
@@ -1016,14 +1020,14 @@ document.querySelectorAll('.chip').forEach(chip=>{
 });
 
 /* Flash sale + why-section icons */
-document.getElementById('flashWatchIcon').innerHTML = '<img src="https://tse1.mm.bing.net/th/id/OIP.IKF0fyXWMu26W044s5ebigHaHa?r=0&pid=Api&h=220&P=0" width="170" height="170" alt="Hamza Velocity GT flash sale watch">';
-document.getElementById('whyWatchIcon').innerHTML = '<img src="https://tse1.mm.bing.net/th/id/OIP.HrJ8oKixd87fSQTQs2yMRQHaE3?r=0&pid=Api&h=220&P=0" width="260" height="260" alt="HAMZA watch quality">';
+document.getElementById('flashWatchIcon').innerHTML = '<img src="https://consumer.huawei.com/dam/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-gt6/list46mm-green.png" width="170" height="170" alt="Hamza Velocity GT flash sale watch">';
+document.getElementById('whyWatchIcon').innerHTML = '<img src="https://watchexchange.sg/wp-content/uploads/2024/02/best-mens-watches.jpg" width="260" height="260" alt="HAMZA watch quality">';
 document.getElementById('flashWaLink').href = waOrderLink(PRODUCTS[5]);
 
 /* Collection deco icons (larger, decorative) */
 document.getElementById('collDeco1').innerHTML = '<img src="https://raritywatches.com/wp-content/uploads/2023/01/Epos-3504-Diver-blue-3.jpg" width="220" height="220" alt="Diver collection watch">';
-document.getElementById('collDeco2').innerHTML = '<img src="https://tse3.mm.bing.net/th/id/OIP.RQwhuHGtYDldx5abOpOeHgHaJ4?r=0&pid=Api&h=220&P=0" width="220" height="220" alt="Chronograph collection watch">';
-document.getElementById('collDeco3').innerHTML = '<img src="https://i.pinimg.com/736x/19/2d/48/192d481a865a197a5b97a3a12fd32fc2.jpg" width="220" height="220" alt="Classic collection watch">';
+document.getElementById('collDeco2').innerHTML = '<img src="https://www.gearpatrol.com/wp-content/uploads/sites/2/2025/03/timex-waterbury-heritage-chronograph-silver-front-gear-patrol-jpg.webp" width="220" height="220" alt="Chronograph collection watch">';
+document.getElementById('collDeco3').innerHTML = '<img src="https://static1.pocketnowimages.com/wordpress/wp-content/uploads/2023/07/pbi-samsung-galaxy-watch-6.png" width="220" height="220" alt="Classic collection watch">';
 
 function setPersistentCookie(name, value){
   document.cookie = `${name}=${encodeURIComponent(JSON.stringify(value))}; max-age=315360000; path=/; SameSite=Lax`;
@@ -1183,13 +1187,21 @@ document.getElementById('flashBuyBtn').addEventListener('click', (e)=>{ e.preven
 (function(){
   const burger = document.getElementById('navBurger');
   const links = document.getElementById('navLinks');
+  const closeButton = document.getElementById('navClose');
   if(!burger || !links) return;
   function closeMenu(){ links.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }
   burger.addEventListener('click', ()=>{
     const isOpen = links.classList.toggle('open');
     burger.setAttribute('aria-expanded', String(isOpen));
   });
+  closeButton.addEventListener('click', closeMenu);
   links.querySelectorAll('a').forEach(a=> a.addEventListener('click', closeMenu));
+  document.addEventListener('click', (event)=>{
+    if(links.classList.contains('open') && !links.contains(event.target) && event.target !== burger) closeMenu();
+  });
+  document.addEventListener('keydown', (event)=>{
+    if(event.key === 'Escape' && links.classList.contains('open')) closeMenu();
+  });
 })();
 
 /* ============ HERO BACKGROUND VIDEO ============ */
