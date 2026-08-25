@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAMZA — Precision Timepieces</title>
+<meta name="description" content="HAMZA — premium watches, direct to your door. Order via WhatsApp or Email.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0A0E1A;
+    --ink-2:#111830;
+    --ink-3:#1A2240;
+    --blue:#1A73E8;
+    --blue-light:#5B9DFF;
+    --blue-dim: rgba(26,115,232,0.16);
+    --gold:#C9A961;
+    --gold-light:#E4CE95;
+    --paper:#F5F7FB;
+    --paper-2:#EDF1F8;
+    --text:#0B1220;
+    --slate:#5C6779;
+    --slate-2:#8993A6;
+    --white:#FFFFFF;
+    --line: rgba(11,18,32,0.09);
+    --line-dark: rgba(255,255,255,0.10);
+    --radius: 18px;
+    --shadow-lg: 0 30px 70px -20px rgba(10,14,26,0.45);
+    --shadow-md: 0 14px 34px -12px rgba(10,14,26,0.22);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--paper);
+    color:var(--text);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+  h1,h2,h3,h4{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.01em;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    font-weight:700;
+  }
+  .container{max-width:1240px;margin:0 auto;padding:0 28px;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 26px;border-radius:100px;font-weight:700;font-size:14.5px;
+    letter-spacing:0.01em; transition:transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--blue);color:#fff;box-shadow:0 12px 26px -8px rgba(26,115,232,0.55);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 34px -8px rgba(26,115,232,0.65);}
+  .btn-gold{background:linear-gradient(135deg,var(--gold-light),var(--gold));color:#241D0E;box-shadow:0 12px 26px -10px rgba(201,169,97,0.55);}
+  .btn-gold:hover{transform:translateY(-2px);}
+  .btn-ghost{background:transparent;border:1.5px solid var(--line-dark);color:#fff;}
+  .btn-ghost:hover{background:rgba(255,255,255,0.08);}
+  .btn-outline{background:transparent;border:1.5px solid var(--line);color:var(--text);}
+  .btn-outline:hover{background:var(--paper-2);}
+  .btn-sm{padding:10px 18px;font-size:13px;}
+  .btn-block{width:100%;}
+  .btn:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible{
+    outline:2.5px solid var(--blue-light); outline-offset:3px; border-radius:8px;
+  }
+
+  /* ================= ANNOUNCEMENT BAR ================= */
+  .announce{
+    background:var(--ink); color:var(--gold-light); overflow:hidden; white-space:nowrap;
+    padding:9px 0; font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.04em;
+    border-bottom:1px solid var(--line-dark);
+  }
+  .announce-track{display:inline-flex; animation: marquee 26s linear infinite;}
+  .announce-track span{padding:0 34px; display:inline-flex; align-items:center; gap:10px;}
+  @keyframes marquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ================= NAV ================= */
+  header.nav{
+    position:sticky; top:0; z-index:200;
+    background:rgba(10,14,26,0.72); backdrop-filter:blur(18px) saturate(140%);
+    border-bottom:1px solid var(--line-dark);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:1240px;margin:0 auto;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:700;font-size:22px;color:#fff;letter-spacing:0.01em;}
+  .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--blue);box-shadow:0 0 14px 3px var(--blue-light);}
+  .nav-links{display:flex;gap:32px;}
+  .nav-links a{color:rgba(255,255,255,0.78);font-size:14.5px;font-weight:500;transition:color .2s;}
+  .nav-links a:hover{color:#fff;}
+  .nav-right{display:flex;align-items:center;gap:14px;}
+  .icon-btn{
+    position:relative; width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,0.06); border:1px solid var(--line-dark); color:#fff; transition:.2s;
+  }
+  .icon-btn:hover{background:rgba(255,255,255,0.14);}
+  .cart-count{
+    position:absolute; top:-5px; right:-5px; background:var(--blue); color:#fff; font-size:10.5px; font-weight:800;
+    width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace; box-shadow:0 0 0 2px var(--ink);
+  }
+  .nav-toggle{display:none;}
+  .nav-burger{display:none;}
+
+  /* ================= HERO ================= */
+  .hero{
+    position:relative; min-height:100vh; background:
+      radial-gradient(ellipse 900px 600px at 78% 18%, rgba(26,115,232,0.30), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 15% 85%, rgba(201,169,97,0.14), transparent 60%),
+      linear-gradient(180deg,#080B14 0%, #0A0E1A 55%, #0D1226 100%);
+    color:#fff; overflow:hidden; display:flex; flex-direction:column;
+  }
+  .hero-bg-video{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;
+    z-index:0; opacity:0; transition:opacity 1.2s ease;
+  }
+  .hero-bg-video.loaded{opacity:1;}
+  .hero-overlay{
+    position:absolute; inset:0; z-index:1;
+    background:
+      linear-gradient(180deg, rgba(6,9,17,0.60) 0%, rgba(6,9,17,0.72) 55%, rgba(8,11,20,0.92) 100%),
+      radial-gradient(ellipse 900px 600px at 78% 18%, rgba(26,115,232,0.30), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 15% 85%, rgba(201,169,97,0.14), transparent 60%);
+  }
+  .hero-noise{
+    position:absolute; inset:0; z-index:2; opacity:0.035; mix-blend-mode:overlay; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .hero-grid{
+    flex:1; display:grid; grid-template-columns:1fr; align-items:center; gap:20px;
+    max-width:1240px; margin:0 auto; padding:120px 28px 60px; width:100%; position:relative; z-index:3;
+  }
+  .hero-badge{
+    display:inline-flex; align-items:center; gap:8px; padding:7px 14px 7px 8px; border-radius:100px;
+    background:rgba(255,255,255,0.07); border:1px solid var(--line-dark); font-size:12.5px; font-weight:600; margin-bottom:26px;
+  }
+  .hero-badge img,.hero-badge .swatch{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--gold-light),var(--gold));}
+  .hero h1{
+    font-size:clamp(40px,5.6vw,74px); line-height:0.98; font-weight:600; letter-spacing:-0.02em; margin-bottom:22px;
+  }
+  .hero h1 em{font-style:italic; font-weight:300; color:var(--gold-light); position:relative;}
+  .hero p.lead{font-size:18px; color:rgba(255,255,255,0.68); max-width:460px; margin-bottom:34px; font-weight:400;}
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px;}
+  .hero-stats{display:flex; gap:36px; flex-wrap:wrap;}
+  .hero-stats div b{display:block; font-family:'Fraunces',serif; font-size:26px; font-weight:600; color:#fff;}
+  .hero-stats div span{font-size:12.5px; color:rgba(255,255,255,0.55); font-family:'JetBrains Mono',monospace; letter-spacing:0.03em;}
+
+  .scroll-cue{
+    display:flex; align-items:center; gap:10px; justify-content:center; padding-bottom:26px; color:rgba(255,255,255,0.45);
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:0.1em; position:relative; z-index:3;
+  }
+  .scroll-cue .line{width:1px; height:26px; background:linear-gradient(to bottom, rgba(255,255,255,0.6), transparent); animation:scrollLine 1.8s ease-in-out infinite;}
+  @keyframes scrollLine{0%{opacity:0;transform:translateY(-6px);}50%{opacity:1;}100%{opacity:0;transform:translateY(10px);}}
+
+  /* ================= TRUST STRIP ================= */
+  .trust{background:var(--ink-2); border-bottom:1px solid var(--line-dark); border-top:1px solid var(--line-dark);}
+  .trust-inner{display:grid; grid-template-columns:repeat(4,1fr); max-width:1240px; margin:0 auto;}
+  .trust-item{
+    display:flex; align-items:center; gap:14px; padding:24px 26px; border-right:1px solid var(--line-dark); color:#fff;
+  }
+  .trust-item:last-child{border-right:none;}
+  .trust-item .ic{width:38px;height:38px;flex-shrink:0;color:var(--blue-light);}
+  .trust-item b{display:block; font-size:14.5px; font-weight:700;}
+  .trust-item span{font-size:12.5px; color:rgba(255,255,255,0.55);}
+
+  /* ================= SECTION HEADERS ================= */
+  section{padding:100px 0;}
+  .sec-head{display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:48px; gap:24px; flex-wrap:wrap;}
+  .sec-head .eyebrow{color:var(--blue); margin-bottom:12px; display:block;}
+  .sec-head h2{font-size:clamp(30px,3.6vw,44px); max-width:560px;}
+  .sec-head p{color:var(--slate); font-size:15.5px; max-width:380px;}
+
+  /* ================= FLASH SALE ================= */
+  .flash{background:linear-gradient(120deg,#0A0E1A,#141B36 60%,#0A0E1A); color:#fff; position:relative; overflow:hidden;}
+  .flash::before{content:"";position:absolute; inset:0; background:radial-gradient(circle at 85% 20%, rgba(201,169,97,0.18), transparent 55%);}
+  .flash-grid{position:relative; z-index:2; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}
+  .flash-timer{display:flex; gap:12px; margin:28px 0 34px;}
+  .flash-timer .t{
+    background:rgba(255,255,255,0.06); border:1px solid var(--line-dark); border-radius:14px; padding:16px 18px; text-align:center; min-width:76px;
+  }
+  .flash-timer .t b{display:block; font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:700; color:var(--gold-light);}
+  .flash-timer .t span{font-size:10.5px; color:rgba(255,255,255,0.5); letter-spacing:0.1em; font-family:'JetBrains Mono',monospace;}
+  .flash-card{
+    background:linear-gradient(160deg,#131A31,#0B0F1F); border:1px solid var(--line-dark); border-radius:24px; padding:40px;
+    display:flex; align-items:center; gap:32px; box-shadow:var(--shadow-lg); position:relative;
+  }
+  .flash-card .watch-icon-wrap{width:190px; height:190px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:8px; border:1px solid rgba(228,206,149,.5); border-radius:24px; background:rgba(255,255,255,.06); box-shadow:0 0 0 7px rgba(201,169,97,.06), 0 18px 36px rgba(0,0,0,.28); overflow:hidden; animation:imageFloat 5s ease-in-out infinite;}
+  .flash-card .watch-icon-wrap img{width:100%; height:100%; object-fit:cover; border-radius:18px; transition:transform .45s ease, filter .45s ease;}
+  .flash-card:hover .watch-icon-wrap img{transform:scale(1.08) rotate(2deg); filter:saturate(1.12) contrast(1.05);}
+  @keyframes imageFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+  .flash-tag{position:absolute; top:-14px; left:34px; background:var(--blue); color:#fff; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; padding:6px 14px; border-radius:100px; letter-spacing:0.06em;}
+  .flash-price{display:flex; align-items:baseline; gap:10px; margin:12px 0 6px;}
+  .flash-price .now{font-family:'Fraunces',serif; font-size:32px; font-weight:600; color:#fff;}
+  .flash-price .old{font-size:16px; color:rgba(255,255,255,0.4); text-decoration:line-through;}
+  .flash-price .off{font-size:12.5px; color:#7CD98A; font-weight:700; font-family:'JetBrains Mono',monospace;}
+
+  /* ================= COLLECTIONS ================= */
+  .collections{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .coll-card{
+    position:relative; border-radius:var(--radius); overflow:hidden; height:340px; display:flex; align-items:flex-end;
+    padding:28px; color:#fff; isolation:isolate; transform:translateZ(0); transition:transform .4s ease, box-shadow .4s ease;
+  }
+  .coll-card:hover{transform:translateY(-8px); box-shadow:var(--shadow-lg);}
+  .coll-card::before{content:""; position:absolute; inset:0; z-index:-2;}
+  .coll-card.c1::before{background:linear-gradient(160deg,#0E3A66,#08101F 75%);}
+  .coll-card.c2::before{background:linear-gradient(160deg,#3A2E12,#08101F 75%);}
+  .coll-card.c3::before{background:linear-gradient(160deg,#241238,#08101F 75%);}
+  .coll-card::after{content:""; position:absolute; inset:0; z-index:-1; background:radial-gradient(circle at 75% 15%, rgba(255,255,255,0.14), transparent 55%);}
+  .coll-card .coll-count{font-family:'JetBrains Mono',monospace; font-size:11.5px; color:rgba(255,255,255,0.6); margin-bottom:8px; display:block;}
+  .coll-card h3{font-size:26px; margin-bottom:6px;}
+  .coll-card p{font-size:13.5px; color:rgba(255,255,255,0.65); max-width:230px;}
+  .coll-card .arrow{
+    position:absolute; top:24px; right:24px; width:42px; height:42px; border-radius:50%; background:rgba(255,255,255,0.12);
+    display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,0.2); transition:.3s;
+  }
+  .coll-card:hover .arrow{background:var(--blue); transform:rotate(45deg);}
+  .coll-watch-deco{position:absolute; right:-30px; bottom:-30px; width:220px; height:220px; padding:10px; opacity:0.9; transform:rotate(-12deg); transition:transform .5s ease, opacity .5s ease;}
+  .coll-watch-deco::before{content:""; position:absolute; inset:0; border:1px solid rgba(255,255,255,.28); border-radius:28px; background:rgba(255,255,255,.06); box-shadow:0 18px 38px rgba(0,0,0,.22);}
+  .coll-watch-deco img{position:relative; width:100%; height:100%; object-fit:cover; border:2px solid rgba(255,255,255,.72); border-radius:20px; box-shadow:0 12px 26px rgba(0,0,0,.25); transition:transform .5s ease, filter .5s ease;}
+  .coll-card:hover .coll-watch-deco{transform:rotate(-4deg) scale(1.05); opacity:1;}
+  .coll-card:hover .coll-watch-deco img{transform:scale(1.06); filter:saturate(1.15) brightness(1.08);}
+
+  /* ================= PRODUCTS (Amazon-style grid) ================= */
+  .filter-bar{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:36px;}
+  .chip{
+    padding:9px 18px; border-radius:100px; border:1.5px solid var(--line); font-size:13.5px; font-weight:600; color:var(--slate);
+    transition:.2s;
+  }
+  .chip.active, .chip:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
+  .product-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  .p-card{
+    background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 20px 22px; position:relative; overflow:hidden;
+    transition:transform .35s ease, box-shadow .35s ease; transform-style:preserve-3d;
+  }
+  .p-card:hover{box-shadow:var(--shadow-md); transform:translateY(-6px);}
+  .p-badge{
+    position:absolute; top:16px; left:16px; z-index:3; font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:700;
+    padding:5px 10px; border-radius:100px; letter-spacing:0.04em;
+  }
+  .p-badge.sale{background:#FDE9E9; color:#C4362C;}
+  .p-badge.new{background:var(--blue-dim); color:var(--blue);}
+  .p-badge.best{background:#FFF3D6; color:#8A6512;}
+  .p-badge.limited{background:#EFE4FF; color:#6B3FCB;}
+  .p-wish{
+    position:absolute; top:14px; right:14px; z-index:3; width:34px; height:34px; border-radius:50%; background:var(--paper);
+    display:flex; align-items:center; justify-content:center; color:var(--slate); transition:.2s; border:1px solid var(--line);
+  }
+  .p-wish:hover, .p-wish.active{color:#E1435A; background:#FEECEF; border-color:#FEECEF;}
+  .p-media{
+    height:190px; border-radius:14px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; position:relative; overflow:hidden; border:1px solid var(--line); box-shadow:inset 0 0 0 5px rgba(255,255,255,.08), 0 8px 18px rgba(10,14,26,.08);
+  }
+  .p-media img{width:100%; height:100%; padding:10px; object-fit:contain; filter:drop-shadow(0 16px 20px rgba(0,0,0,0.18)); transition:transform .5s cubic-bezier(.2,.8,.3,1), filter .5s ease;}
+  .p-card:hover .p-media img{transform:scale(1.08) rotate(-2deg); filter:drop-shadow(0 20px 24px rgba(0,0,0,.28)) saturate(1.08);}
+  .p-cat{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.08em; color:var(--slate-2); text-transform:uppercase; margin-bottom:6px;}
+  .p-name{font-size:16.5px; font-weight:700; font-family:'Inter',sans-serif; margin-bottom:6px; line-height:1.3;}
+  .p-rating{display:flex; align-items:center; gap:6px; margin-bottom:10px;}
+  .p-rating .stars{color:var(--gold); font-size:13px; letter-spacing:1px;}
+  .p-rating span{font-size:12px; color:var(--slate-2); font-family:'JetBrains Mono',monospace;}
+  .p-price{display:flex; align-items:baseline; gap:8px; margin-bottom:16px;}
+  .p-price .now{font-size:19px; font-weight:800; font-family:'Fraunces',serif;}
+  .p-price .old{font-size:13px; color:var(--slate-2); text-decoration:line-through;}
+  .p-price .off{font-size:11.5px; color:#1B8A45; font-weight:700;}
+  .p-actions{display:flex; gap:8px;}
+  .p-actions .btn{flex:1; padding:11px 10px; font-size:12.8px;}
+
+  /* ================= WHY / SPLIT ================= */
+  .why{background:var(--ink); color:#fff; position:relative; overflow:hidden;}
+  .why::before{content:"";position:absolute; inset:0; background:radial-gradient(ellipse 700px 400px at 10% 90%, rgba(26,115,232,0.18), transparent 60%);}
+  .why-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:70px; align-items:center; position:relative; z-index:2;}
+  .spec-row{display:flex; justify-content:space-between; padding:20px 0; border-bottom:1px solid var(--line-dark); align-items:center;}
+  .spec-row:first-child{border-top:1px solid var(--line-dark);}
+  .spec-row .k{font-size:14.5px; color:rgba(255,255,255,0.55); font-family:'JetBrains Mono',monospace;}
+  .spec-row .v{font-size:16px; font-weight:600;}
+  .why-visual{position:relative; height:420px; display:flex; align-items:center; justify-content:center;}
+  .why-ring{position:absolute; border:1px solid var(--line-dark); border-radius:50%; animation:spin 30s linear infinite;}
+  .why-ring.r1{width:420px;height:420px;}
+  .why-ring.r2{width:330px;height:330px; animation-duration:22s; animation-direction:reverse; border-style:dashed;}
+  #whyWatchIcon{display:flex; align-items:center; justify-content:center; padding:12px; border:1px solid rgba(228,206,149,.5); border-radius:30px; background:rgba(255,255,255,.06); box-shadow:0 0 0 8px rgba(201,169,97,.06), 0 20px 42px rgba(0,0,0,.24); animation:imageFloat 6s ease-in-out infinite; overflow:hidden;}
+  #whyWatchIcon img{width:100%; height:100%; object-fit:cover; border-radius:20px; transition:transform .5s ease, filter .5s ease;}
+  #whyWatchIcon:hover img{transform:scale(1.07); filter:saturate(1.12) brightness(1.08);}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* ================= REVIEWS ================= */
+  .reviews-track{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .review-card{background:#fff; border:1px solid var(--line); border-radius:16px; padding:26px;}
+  .review-card .stars{color:var(--gold); font-size:14px; margin-bottom:14px; letter-spacing:2px;}
+  .review-card p{font-size:14.5px; color:var(--text); margin-bottom:20px; line-height:1.65;}
+  .review-who{display:flex; align-items:center; gap:12px;}
+  .review-avatar{width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff; font-size:14px; font-family:'Fraunces',serif;}
+  .review-who b{display:block; font-size:13.5px;}
+  .review-who span{font-size:12px; color:var(--slate-2);}
+
+  /* ================= HOW TO ORDER ================= */
+  .order-flow{background:var(--paper-2);}
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .step-card{background:#fff; border:1px solid var(--line); border-radius:18px; padding:32px 28px; position:relative;}
+  .step-num{font-family:'Fraunces',serif; font-size:44px; color:var(--blue-dim); font-weight:700; -webkit-text-stroke:1.5px var(--blue); color:transparent; margin-bottom:18px;}
+  .step-card h3{font-size:19px; margin-bottom:10px;}
+  .step-card p{font-size:14px; color:var(--slate); margin-bottom:18px;}
+
+  .order-cta{
+    margin-top:56px; background:var(--ink); border-radius:24px; padding:52px; display:flex; align-items:center; justify-content:space-between;
+    gap:30px; flex-wrap:wrap; color:#fff; position:relative; overflow:hidden;
+  }
+  .order-cta::before{content:"";position:absolute; inset:0; background:radial-gradient(circle at 90% 10%, rgba(26,115,232,0.35), transparent 55%);}
+  .order-cta-text{position:relative; z-index:2;}
+  .order-cta-text h3{font-size:28px; margin-bottom:8px;}
+  .order-cta-text p{color:rgba(255,255,255,0.6); font-size:14.5px;}
+  .order-cta-actions{display:flex; gap:14px; position:relative; z-index:2; flex-wrap:wrap;}
+
+  /* ================= FAQ ================= */
+  .faq-list{max-width:820px; margin:0 auto;}
+  .faq-item{border-bottom:1px solid var(--line); padding:22px 0;}
+  .faq-q{display:flex; align-items:center; justify-content:space-between; cursor:pointer; gap:20px;}
+  .faq-q h4{font-size:16.5px; font-weight:600; font-family:'Inter',sans-serif;}
+  .faq-plus{width:26px; height:26px; border-radius:50%; border:1.5px solid var(--line); flex-shrink:0; display:flex; align-items:center; justify-content:center; position:relative; transition:.3s;}
+  .faq-plus::before, .faq-plus::after{content:""; position:absolute; background:var(--text); transition:.3s;}
+  .faq-plus::before{width:11px; height:1.5px;}
+  .faq-plus::after{width:1.5px; height:11px;}
+  .faq-item.open .faq-plus{transform:rotate(135deg); border-color:var(--blue); background:var(--blue);}
+  .faq-item.open .faq-plus::before, .faq-item.open .faq-plus::after{background:#fff;}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .faq-a p{padding-top:14px; font-size:14.5px; color:var(--slate); max-width:640px; line-height:1.7;}
+
+  /* ================= NEWSLETTER / CONTACT ================= */
+  .contact{background:linear-gradient(160deg,#0A0E1A,#111830); color:#fff;}
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}
+  .contact-cards{display:flex; flex-direction:column; gap:16px;}
+  .contact-card{
+    display:flex; align-items:center; gap:16px; background:rgba(255,255,255,0.05); border:1px solid var(--line-dark);
+    border-radius:16px; padding:20px 22px; transition:.25s;
+  }
+  .contact-card:hover{background:rgba(255,255,255,0.09); transform:translateX(4px);}
+  .contact-card .ic{width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .contact-card b{display:block; font-size:15px;}
+  .contact-card span{font-size:13px; color:rgba(255,255,255,0.55); font-family:'JetBrains Mono',monospace;}
+
+  /* ================= FOOTER ================= */
+  footer{background:#070A12; color:rgba(255,255,255,0.6); padding:70px 0 30px;}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; margin-bottom:60px;}
+  .footer-grid h5{color:#fff; font-size:13.5px; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:18px; font-family:'JetBrains Mono',monospace;}
+  .footer-grid ul li{margin-bottom:11px; font-size:14px;}
+  .footer-grid ul li a:hover{color:#fff;}
+  .footer-logo{display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-size:22px; color:#fff; margin-bottom:14px;}
+  .footer-bottom{border-top:1px solid var(--line-dark); padding-top:26px; display:flex; justify-content:space-between; font-size:12.5px; flex-wrap:wrap; gap:12px;}
+  .socials{display:flex; gap:10px;}
+  .socials a{width:36px;height:36px;border-radius:50%;border:1px solid var(--line-dark); display:flex; align-items:center; justify-content:center; transition:.2s;}
+  .socials a:hover{background:var(--blue); border-color:var(--blue); color:#fff;}
+
+  /* ================= CART DRAWER ================= */
+  .overlay{position:fixed; inset:0; background:rgba(5,7,14,0.55); backdrop-filter:blur(3px); opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:400;}
+  .overlay.show{opacity:1; pointer-events:auto;}
+  .cart-drawer{
+    position:fixed; top:0; right:0; height:100%; width:420px; max-width:92vw; background:#fff; z-index:401;
+    transform:translateX(100%); transition:transform .4s cubic-bezier(.2,.8,.2,1); display:flex; flex-direction:column; box-shadow:-20px 0 60px rgba(0,0,0,0.25);
+  }
+  .cart-drawer.show{transform:translateX(0);}
+  .cart-head{padding:24px 24px 18px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between;}
+  .cart-head h3{font-size:20px;}
+  .cart-close{width:36px;height:36px;border-radius:50%; display:flex; align-items:center; justify-content:center; background:var(--paper-2);}
+  .cart-items{flex:1; overflow-y:auto; padding:18px 24px;}
+  .cart-empty{text-align:center; padding:60px 20px; color:var(--slate);}
+  .cart-empty svg{width:64px; height:64px; margin:0 auto 16px; color:var(--slate-2);}
+  .cart-line{display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--line);}
+  .cart-line .thumb{width:64px; height:64px; border-radius:10px; background:var(--paper-2); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .cart-line .thumb img{width:46px; height:46px; object-fit:cover; border:1px solid rgba(11,18,32,.12); border-radius:8px; transition:transform .3s ease;}
+  .cart-line:hover .thumb img{transform:scale(1.08) rotate(-3deg);}
+  .cart-line-info{flex:1;}
+  .cart-line-info b{font-size:14px; display:block; margin-bottom:3px;}
+  .cart-line-info .price{font-size:13.5px; color:var(--slate); font-family:'JetBrains Mono',monospace;}
+  .cart-line-actions{display:flex; align-items:center; justify-content:space-between; margin-top:8px;}
+  .qty{display:flex; align-items:center; gap:10px; border:1px solid var(--line); border-radius:100px; padding:4px 10px;}
+  .qty button{font-weight:700; width:16px;}
+  .remove-line{font-size:12px; color:#C4362C; font-weight:600;}
+  .cart-foot{padding:20px 24px 26px; border-top:1px solid var(--line);}
+  .cart-total{display:flex; justify-content:space-between; margin-bottom:16px; font-size:16px; font-weight:700;}
+  .checkout-form{display:flex; flex-direction:column; gap:9px; margin-bottom:16px;}
+  .checkout-form label{font-size:12px; font-weight:700; color:var(--slate);}
+  .checkout-form input,.checkout-form textarea{width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:10px; font:inherit; font-size:13px; color:var(--text); background:#fff;}
+  .checkout-form textarea{min-height:72px; resize:vertical;}
+  .checkout-form input:focus,.checkout-form textarea:focus{outline:2px solid var(--blue-light); outline-offset:1px;}
+  .cart-foot .btn{margin-bottom:10px;}
+
+  /* toast */
+  .toast{
+    position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--ink); color:#fff;
+    padding:14px 22px; border-radius:100px; font-size:13.5px; font-weight:600; z-index:500; opacity:0; transition:.3s; display:flex; align-items:center; gap:10px;
+    box-shadow:var(--shadow-lg);
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* WhatsApp float button */
+  .wa-float{
+    position:fixed; bottom:26px; right:26px; z-index:150; width:60px; height:60px; border-radius:50%;
+    background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 14px 30px -8px rgba(37,211,102,0.6);
+    animation:waPulse 2.4s ease-in-out infinite;
+  }
+  @keyframes waPulse{0%,100%{box-shadow:0 14px 30px -8px rgba(37,211,102,0.6);}50%{box-shadow:0 14px 30px -4px rgba(37,211,102,0.9),0 0 0 8px rgba(37,211,102,0.12);}}
+  .wa-float svg{width:30px;height:30px;}
+
+  /* ================= RESPONSIVE ================= */
+  @media (max-width:1080px){
+    .hero-grid{grid-template-columns:1fr; text-align:center; padding-top:100px;}
+    .hero p.lead{margin-left:auto; margin-right:auto;}
+    .hero-ctas, .hero-stats{justify-content:center;}
+    .trust-inner{grid-template-columns:repeat(2,1fr);}
+    .trust-item:nth-child(2){border-right:none;}
+    .flash-grid{grid-template-columns:1fr;}
+    .collections{grid-template-columns:1fr;}
+    .product-grid{grid-template-columns:repeat(2,1fr);}
+    .why-grid{grid-template-columns:1fr; gap:40px;}
+    .reviews-track{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .nav-burger{display:flex;}
+    .nav-links{
+      display:flex; flex-direction:column; gap:0; position:fixed; top:0; right:0; height:100vh; width:78vw; max-width:320px;
+      background:#0A0E1A; padding:100px 28px 28px; transform:translateX(100%); transition:transform .35s cubic-bezier(.2,.8,.2,1);
+      z-index:250; box-shadow:-16px 0 40px rgba(0,0,0,0.35);
+    }
+    .nav-links.open{transform:translateX(0);}
+    .nav-links a{padding:16px 0; border-bottom:1px solid var(--line-dark); font-size:16px;}
+  }
+  @media (max-width:640px){
+    .product-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .order-cta{flex-direction:column; align-items:flex-start;}
+    section{padding:70px 0;}
+    .container{padding:0 18px;}
+  }
+
+  @media (max-width:768px){
+    .container{width:100%; padding-left:18px; padding-right:18px;}
+    .nav-inner{padding:13px 18px;}
+    .nav-right{gap:8px;}
+    .nav-right > .btn-primary{display:none;}
+    .icon-btn{width:38px; height:38px;}
+    .hero{min-height:auto;}
+    .hero-grid{padding:76px 18px 44px;}
+    .hero h1{font-size:clamp(38px,11vw,56px); line-height:1.02;}
+    .hero p.lead{font-size:16px;}
+    .hero-ctas{flex-direction:column; align-items:stretch; margin-bottom:34px;}
+    .hero-ctas .btn{width:100%;}
+    .hero-stats{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px 14px;}
+    .hero-stats div span{font-size:10px;}
+    .scroll-cue{padding-bottom:20px;}
+    .trust-inner{grid-template-columns:1fr;}
+    .trust-item{border-right:0; border-bottom:1px solid var(--line-dark);}
+    .trust-item:last-child{border-bottom:0;}
+    .sec-head{align-items:flex-start; flex-direction:column; margin-bottom:30px; gap:12px;}
+    .sec-head h2{font-size:clamp(30px,9vw,40px);}
+    .sec-head p{max-width:none;}
+    .flash{padding:64px 0;}
+    .flash-grid{gap:32px;}
+    .flash-card{padding:26px 20px;}
+    .flash-card .watch-icon-wrap{width:150px; height:150px;}
+    .countdown{gap:6px;}
+    .countdown .unit{min-width:58px; padding:12px 8px;}
+    .collections{gap:16px;}
+    .coll-card{height:300px;}
+    .coll-card-content{padding:22px;}
+    .filter-bar{gap:8px; margin-bottom:26px;}
+    .filter-btn{padding:9px 12px; font-size:12px;}
+    .product-grid{gap:16px;}
+    .p-card{padding:16px 16px 18px;}
+    .why-grid{gap:28px;}
+    .why-visual{height:300px; overflow:hidden;}
+    .why-ring.r1{width:300px; height:300px;}
+    .why-ring.r2{width:230px; height:230px;}
+    .steps{gap:16px;}
+    .step-card{padding:26px 22px;}
+    .order-cta{padding:32px 22px; margin-top:36px;}
+    .order-cta-text h3{font-size:24px;}
+    .order-cta-actions{width:100%; flex-direction:column;}
+    .order-cta-actions .btn{width:100%;}
+    .contact-grid{gap:30px;}
+    .footer-grid{gap:30px; margin-bottom:40px;}
+    .footer-bottom{flex-direction:column;}
+    .cart-drawer{width:100%; max-width:100%;}
+    .cart-head{padding:20px 18px 16px;}
+    .cart-items{padding:16px 18px;}
+    .cart-foot{padding:18px 18px 22px;}
+    .toast{width:calc(100% - 36px); justify-content:center; text-align:center;}
+    .wa-float{width:54px; height:54px; right:18px; bottom:18px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="announce">
+  <div class="announce-track" id="marquee">
+    <span>✦ FESTIVE SALE — UP TO 45% OFF, TODAY ONLY</span>
+    <span>✦ FREE PAN-INDIA SHIPPING ON EVERY WATCH</span>
+    <span>✦ CASH ON DELIVERY AVAILABLE</span>
+    <span>✦ ORDER DIRECT ON WHATSAPP — INSTANT CONFIRMATION</span>
+    <span>✦ FESTIVE SALE — UP TO 45% OFF, TODAY ONLY</span>
+    <span>✦ FREE PAN-INDIA SHIPPING ON EVERY WATCH</span>
+    <span>✦ CASH ON DELIVERY AVAILABLE</span>
+    <span>✦ ORDER DIRECT ON WHATSAPP — INSTANT CONFIRMATION</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo"><span class="dot"></span> HAMZA</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#collections">Collections</a>
+      <a href="#bestsellers">Best Sellers</a>
+      <a href="#flashsale">Deal of the Day</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <a class="icon-btn" href="https://wa.me/917505640600?text=Hi%20HAMZA%2C%20I%27d%20like%20to%20know%20more%20about%20your%20watches." target="_blank" rel="noopener" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </a>
+      <button class="icon-btn" id="cartBtn" aria-label="Open cart">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <a href="#bestsellers" class="btn btn-primary btn-sm">Shop Now</a>
+      <button class="icon-btn nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <video class="hero-bg-video" id="heroVideo" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+    <source src="video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-grid">
+    <div class="reveal in">
+      <div class="hero-badge"><span class="swatch"></span> Rated 4.8/5 by 12,400+ customers</div>
+      <h1>Precision on your<br> wrist, <em>worn boldly.</em></h1>
+      <p class="lead">HAMZA builds watches for people who notice details — sculpted cases, sapphire-clear crystals, and mechanisms tested to survive the day you actually live. Order in seconds, straight to your door.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#bestsellers">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Explore Collection
+        </a>
+        <a class="btn btn-ghost" href="https://wa.me/917505640600?text=Hi%20HAMZA%2C%20I%27d%20like%20to%20place%20an%20order." target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          Order on WhatsApp
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div><b>50,000+</b><span>WATCHES SHIPPED</span></div>
+        <div><b>4.8 / 5</b><span>AVERAGE RATING</span></div>
+        <div><b>2 Yr</b><span>WARRANTY COVER</span></div>
+        <div><b>24/7</b><span>WHATSAPP SUPPORT</span></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="scroll-cue"><span class="line"></span> SCROLL TO DISCOVER</div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="7" width="15" height="11" rx="1"/><path d="M16 10h3l3 3v5h-6"/><circle cx="6" cy="19" r="2"/><circle cx="17.5" cy="19" r="2"/></svg>
+      <div><b>Free Shipping</b><span>On every order, pan-India</span></div>
+    </div>
+    <div class="trust-item">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg>
+      <div><b>Cash on Delivery</b><span>Pay when it arrives</span></div>
+    </div>
+    <div class="trust-item">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6l8-4z"/></svg>
+      <div><b>2-Year Warranty</b><span>Movement &amp; case covered</span></div>
+    </div>
+    <div class="trust-item">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      <div><b>WhatsApp Support</b><span>Real answers, real fast</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- FLASH SALE -->
+<section class="flash" id="flashsale">
+  <div class="container flash-grid">
+    <div class="reveal">
+      <span class="eyebrow" style="color:var(--gold-light)">⚡ Deal of the Day</span>
+      <h2 style="margin-top:14px; font-size:clamp(28px,3.4vw,40px);">One watch. One price.<br>Gone by midnight.</h2>
+      <p style="color:rgba(255,255,255,0.6); max-width:420px; margin-top:14px; font-size:15px;">Every day we drop the price on a single HAMZA piece. When the counter hits zero, this price disappears with it.</p>
+      <div class="flash-timer" id="flashTimer">
+        <div class="t"><b id="fh">00</b><span>HRS</span></div>
+        <div class="t"><b id="fm">00</b><span>MIN</span></div>
+        <div class="t"><b id="fs">00</b><span>SEC</span></div>
+      </div>
+      <a class="btn btn-gold" id="flashBuyBtn" href="#">Grab This Deal</a>
+    </div>
+    <div class="flash-card reveal">
+      <span class="flash-tag">70 CLAIMED TODAY</span>
+      <div class="watch-icon-wrap" id="flashWatchIcon"></div>
+      <div>
+        <div class="p-cat">Limited Drop</div>
+        <h3 style="font-size:22px; margin-bottom:6px;">Hamza Velocity GT</h3>
+        <div class="p-rating"><span class="stars">★★★★★</span><span>4.9 (860)</span></div>
+        <div class="flash-price">
+          <span class="now">₹5,999</span>
+          <span class="old">₹10,499</span>
+          <span class="off">SAVE 43%</span>
+        </div>
+        <p style="font-size:13px; color:rgba(255,255,255,0.55); margin-bottom:20px;">Racing-red chronograph accents, brushed steel case, sapphire-coated crystal.</p>
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-primary btn-sm" onclick="addToCart('p6')">Add to Cart</button>
+          <a class="btn btn-outline btn-sm" style="border-color:rgba(255,255,255,0.3); color:#fff;" id="flashWaLink" href="#" target="_blank" rel="noopener">Order via WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTIONS -->
+<section id="collections">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div>
+        <span class="eyebrow">Shop by collection</span>
+        <h2>Three ways to wear time.</h2>
+      </div>
+      <p>From dive-rated tool watches to dress pieces built for boardrooms — every collection carries the same movement standard.</p>
+    </div>
+    <div class="collections">
+      <a class="coll-card c1 reveal" href="#bestsellers">
+        <div class="coll-watch-deco" id="collDeco1"></div>
+        <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+        <div><span class="coll-count">08 PIECES</span><h3>The Diver</h3><p>200m water resistance, unidirectional bezel, built for open water.</p></div>
+      </a>
+      <a class="coll-card c2 reveal" href="#bestsellers">
+        <div class="coll-watch-deco" id="collDeco2"></div>
+        <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+        <div><span class="coll-count">06 PIECES</span><h3>The Chronograph</h3><p>Tri-compax dials, tachymeter scales, precision to the fifth of a second.</p></div>
+      </a>
+      <a class="coll-card c3 reveal" href="#bestsellers">
+        <div class="coll-watch-deco" id="collDeco3"></div>
+        <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+        <div><span class="coll-count">05 PIECES</span><h3>The Classic</h3><p>Slim cases, domed crystals, and dials that don't shout to be noticed.</p></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- BEST SELLERS / PRODUCT GRID -->
+<section id="bestsellers" style="background:var(--paper-2);">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div>
+        <span class="eyebrow">Best sellers</span>
+        <h2>Chosen by 12,000+ wrists.</h2>
+      </div>
+      <p>Every watch ships with a 2-year warranty, a certificate of authenticity, and free returns within 14 days.</p>
+    </div>
+    <div class="filter-bar reveal">
+      <button class="chip active" data-filter="all">All Watches</button>
+      <button class="chip" data-filter="Diver">Diver</button>
+      <button class="chip" data-filter="Chronograph">Chronograph</button>
+      <button class="chip" data-filter="Classic">Classic</button>
+      <button class="chip" data-filter="Field">Field</button>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<!-- WHY HAMZA -->
+<section class="why">
+  <div class="container why-grid">
+    <div class="reveal">
+      <span class="eyebrow" style="color:var(--blue-light)">Why HAMZA</span>
+      <h2 style="margin:14px 0 26px; font-size:clamp(28px,3.2vw,38px);">Built to a standard, not a budget.</h2>
+      <div class="spec-row"><span class="k">MOVEMENT</span><span class="v">Precision quartz &amp; automatic</span></div>
+      <div class="spec-row"><span class="k">CASE</span><span class="v">316L surgical-grade steel</span></div>
+      <div class="spec-row"><span class="k">CRYSTAL</span><span class="v">Scratch-resistant sapphire coat</span></div>
+      <div class="spec-row"><span class="k">WATER RESISTANCE</span><span class="v">Up to 200m (diver line)</span></div>
+      <div class="spec-row"><span class="k">WARRANTY</span><span class="v">2 years, movement &amp; case</span></div>
+    </div>
+    <div class="why-visual reveal">
+      <div class="why-ring r1"></div>
+      <div class="why-ring r2"></div>
+      <div id="whyWatchIcon" style="width:260px; height:260px; position:relative; z-index:2;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Customer stories</span><h2>What people say after wearing one.</h2></div>
+    </div>
+    <div class="reviews-track" id="reviewsTrack"></div>
+  </div>
+</section>
+
+<!-- HOW TO ORDER -->
+<section class="order-flow" id="order-flow">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">How ordering works</span><h2>No cart maze. Just a message.</h2></div>
+      <p>Pick a piece, tell us on WhatsApp or email, and we handle the rest — including cash on delivery.</p>
+    </div>
+    <div class="steps">
+      <div class="step-card reveal"><div class="step-num">01</div><h3>Pick your watch</h3><p>Browse the collection and add your pick to the cart, or note down the name.</p></div>
+      <div class="step-card reveal"><div class="step-num">02</div><h3>Message us directly</h3><p>Tap "Order via WhatsApp" or email us — your order details are pre-filled automatically.</p></div>
+      <div class="step-card reveal"><div class="step-num">03</div><h3>Track &amp; receive</h3><p>We confirm availability, ship within 48 hours, and you pay on delivery if you prefer.</p></div>
+    </div>
+    <div class="order-cta reveal">
+      <div class="order-cta-text">
+        <h3>Ready to order?</h3>
+        <p>Message us on WhatsApp or email — a real person replies, not a bot.</p>
+      </div>
+      <div class="order-cta-actions">
+        <a class="btn btn-primary" href="https://wa.me/917505640600?text=Hi%20HAMZA%2C%20I%27d%20like%20to%20place%20an%20order." target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          WhatsApp: +91 75056 40600
+        </a>
+        <a class="btn btn-ghost" href="mailto:ng318833@gmail.com?subject=Watch%20Order%20Enquiry&body=Hi%20HAMZA%2C%20I%27d%20like%20to%20order%20a%20watch.">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+          ng318833@gmail.com
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="sec-head reveal" style="justify-content:center; text-align:center; flex-direction:column; align-items:center;">
+      <span class="eyebrow">FAQ</span>
+      <h2>Good to know before you order.</h2>
+    </div>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container contact-grid">
+    <div class="reveal">
+      <span class="eyebrow" style="color:var(--blue-light)">Get in touch</span>
+      <h2 style="margin:14px 0 16px; font-size:clamp(28px,3.2vw,38px);">Two ways to reach a real person.</h2>
+      <p style="color:rgba(255,255,255,0.6); font-size:15px; max-width:420px;">Every order — big or small — is confirmed by a human on our team before it ships. No automated checkout, no surprises.</p>
+    </div>
+    <div class="contact-cards reveal">
+      <a class="contact-card" href="https://wa.me/917505640600" target="_blank" rel="noopener">
+        <span class="ic" style="background:rgba(37,211,102,0.16); color:#25D366;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </span>
+        <div><b>WhatsApp Orders</b><span>+91 75056 40600</span></div>
+      </a>
+      <a class="contact-card" href="mailto:ng318833@gmail.com">
+        <span class="ic" style="background:var(--blue-dim); color:var(--blue-light);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+        </span>
+        <div><b>Email Orders</b><span>ng318833@gmail.com</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo"><span class="dot" style="width:9px;height:9px;border-radius:50%;background:var(--blue);"></span> HAMZA</div>
+        <p style="font-size:13.5px; max-width:280px; line-height:1.7;">Precision timepieces, ordered direct — no middlemen, no markup games. Built for people who show up on time.</p>
+        <div class="socials" style="margin-top:20px;">
+          <a href="https://wa.me/917505640600" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+          <a href="mailto:ng318833@gmail.com" aria-label="Email"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="#collections">Diver</a></li>
+          <li><a href="#collections">Chronograph</a></li>
+          <li><a href="#collections">Classic</a></li>
+          <li><a href="#flashsale">Deal of the Day</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Support</h5>
+        <ul>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#order-flow">Shipping &amp; Delivery</a></li>
+          <li><a href="#order-flow">Returns</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Order Direct</h5>
+        <ul>
+          <li><a href="https://wa.me/917505640600" target="_blank" rel="noopener">+91 75056 40600</a></li>
+          <li><a href="mailto:ng318833@gmail.com">ng318833@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 HAMZA Watches. All rights reserved.</span>
+      <span>Made for people who value their time.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a class="wa-float" href="https://wa.me/917505640600?text=Hi%20HAMZA%2C%20I%27d%20like%20to%20place%20an%20order." target="_blank" rel="noopener" aria-label="Order on WhatsApp">
+  <svg viewBox="0 0 24 24" width="30" height="30" fill="#fff"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.63 1.44 5.15L2 22l5.09-1.53a9.9 9.9 0 0 0 4.95 1.33c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm0 18.06c-1.6 0-3.1-.44-4.38-1.22l-.31-.19-3.1.93.94-3.02-.2-.32a8.02 8.02 0 0 1-1.24-4.35c0-4.42 3.6-8.02 8.02-8.02s8.02 3.6 8.02 8.02-3.6 8.02-8.02 8.02z"/><path d="M16.7 14.13c-.24-.12-1.43-.71-1.65-.79-.22-.08-.38-.12-.55.12-.16.24-.63.79-.77.95-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.19-.71-.63-1.19-1.42-1.33-1.66-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42-.14 0-.3-.02-.46-.02-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.25 1.02.4 1.37.51.58.18 1.1.16 1.51.1.46-.07 1.43-.58 1.63-1.15.2-.56.2-1.04.14-1.15-.06-.1-.22-.16-.46-.28z"/></svg>
+</a>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="overlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <h3>Your Selection</h3>
+    <button class="cart-close" id="cartClose" aria-label="Close cart">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot" id="cartFoot"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ PRODUCT DATA ============ */
+const PRODUCTS = [
+  {id:'p1', name:'Hamza Abyss Diver', cat:'Diver', price:4299, old:7999, rating:4.8, reviews:1240, badge:'best', badgeLabel:'BESTSELLER', dial:'#0B1220', bezel:'#0F3D66', accent:'#5B9DFF', hands:'#E7ECF5'},
+  {id:'p2', name:'Hamza Meridian Chrono', cat:'Chronograph', price:5499, old:9499, rating:4.7, reviews:860, badge:'new', badgeLabel:'NEW', dial:'#101522', bezel:'#22304A', accent:'#C9A961', hands:'#F1F3F8'},
+  {id:'p3', name:'Hamza Regent Classic', cat:'Classic', price:3799, old:6299, rating:4.9, reviews:1520, badge:'best', badgeLabel:'BESTSELLER', dial:'#F7F3E9', bezel:'#C9A961', accent:'#8A6512', hands:'#2A2210', light:true},
+  {id:'p4', name:'Hamza Onyx Field', cat:'Field', price:3299, old:5499, rating:4.6, reviews:640, badge:'sale', badgeLabel:'SALE', dial:'#15181C', bezel:'#2B2F35', accent:'#8FA0B5', hands:'#E7ECF5'},
+  {id:'p5', name:'Hamza Aviator Pro', cat:'Field', price:4899, old:8299, rating:4.7, reviews:410, badge:'new', badgeLabel:'NEW', dial:'#1B2016', bezel:'#4A4530', accent:'#C9A961', hands:'#F1F3F8'},
+  {id:'p6', name:'Hamza Velocity GT', cat:'Chronograph', price:5999, old:10499, rating:4.9, reviews:860, badge:'limited', badgeLabel:'LIMITED', dial:'#141414', bezel:'#2A2A2A', accent:'#D64545', hands:'#F1F3F8'},
+  {id:'p7', name:'Hamza Luna Rose', cat:'Classic', price:3999, old:6799, rating:4.8, reviews:980, badge:'best', badgeLabel:'BESTSELLER', dial:'#221419', bezel:'#B98C8C', accent:'#E4C7C7', hands:'#F6EDEE'},
+  {id:'p8', name:'Hamza Titan X Skeleton', cat:'Diver', price:6499, old:11999, rating:4.9, reviews:310, badge:'limited', badgeLabel:'PREMIUM', dial:'#0D0F14', bezel:'#3A3F4B', accent:'#5B9DFF', hands:'#E7ECF5'},
+];
+
+/* ============ WHATSAPP / EMAIL LINKS (declared early — used during initial render) ============ */
+const WA_NUMBER = '917505640600';
+const EMAIL = 'ng318833@gmail.com';
+
+function waOrderLink(p){
+  const msg = `Hi HAMZA, I want to order:\n\n${p.name} — ₹${p.price.toLocaleString('en-IN')}\n\nPlease confirm availability and delivery time.`;
+  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+}
+
+/* ============ RENDER PRODUCT GRID ============ */
+const grid = document.getElementById('productGrid');
+function renderGrid(filter='all'){
+  grid.innerHTML = '';
+  PRODUCTS.filter(p => filter==='all' || p.cat===filter).forEach(p=>{
+    const off = Math.round((1 - p.price/p.old)*100);
+    const stars = '★★★★★'.slice(0,Math.round(p.rating)) + '☆☆☆☆☆'.slice(0,5-Math.round(p.rating));
+    const card = document.createElement('div');
+    card.className = 'p-card reveal in';
+    card.innerHTML = `
+      <span class="p-badge ${p.badge}">${p.badgeLabel}</span>
+      <button class="p-wish ${getPersistentCookie('hamza_wishlist', []).includes(p.id) ? 'active' : ''}" data-product-id="${p.id}" aria-label="Save to wishlist" onclick="toggleWish(this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+      </button>
+      <div class="p-media" style="background:${p.light? 'linear-gradient(160deg,#FBF8F0,#F1E9D6)' : 'linear-gradient(160deg,#151B2E,#0B0F1C)'}"><img src="${({
+        p1:'https://www.king-wear.com/photo/pl198789280-kw252a_premium_classic_design_amoled_smart_watch.jpg',
+        p2:'https://img4.dhresource.com/webp/m/0x0/f3/albu/jc/z/21/d73bf664-1ea1-4718-b263-5f82562e338a.jpg',
+        p3:'https://content.thewosgroup.com/productimage/17532560/17532560_2.jpg?impolicy=lister',
+        p4:'https://images.stockcake.com/public/8/4/5/845e52db-963d-4b50-97a8-85aa37ad4b2b/luxury-chronograph-timepiece-stockcake.jpg',
+        p5:'https://tse2.mm.bing.net/th/id/OIP._OJwhSiC44tmvzj-DPtigwHaHa?r=0&pid=Api&h=220&P=0',
+        p6:'https://www.hgp-watches.com/cdn/shop/files/diving-watch-monnin-case-diver-200-automatic-black-dial-blue-bezel-blue-tropic-rally-rubber-strap-hgp-23-d2a-001-04-rb2-blu.jpg?v=1700218501',
+        p7:'https://sedgars.com/cdn/shop/files/s-l960_886ad8a7-2ff3-41f1-9e74-fab863bd55b7.webp?v=1772104966',
+        p8:'https://tse3.mm.bing.net/th/id/OIP.oxHA3W_bdPU3F786IRD5OQHaHa?r=0&pid=Api&h=220&P=0'
+      })[p.id]}" width="150" height="150" alt="${p.name} watch"></div>
+      <div class="p-cat">${p.cat}</div>
+      <div class="p-name">${p.name}</div>
+      <div class="p-rating"><span class="stars">${stars}</span><span>${p.rating} (${p.reviews})</span></div>
+      <div class="p-price"><span class="now">₹${p.price.toLocaleString('en-IN')}</span><span class="old">₹${p.old.toLocaleString('en-IN')}</span><span class="off">-${off}%</span></div>
+      <div class="p-actions">
+        <button class="btn btn-outline" onclick="addToCart('${p.id}')">Add to Cart</button>
+        <a class="btn btn-primary" href="${waOrderLink(p)}" target="_blank" rel="noopener">Buy Now</a>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+renderGrid();
+
+document.querySelectorAll('.chip').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    renderGrid(chip.dataset.filter);
+  });
+});
+
+/* Flash sale + why-section icons */
+document.getElementById('flashWatchIcon').innerHTML = '<img src="https://tse1.mm.bing.net/th/id/OIP.IKF0fyXWMu26W044s5ebigHaHa?r=0&pid=Api&h=220&P=0" width="170" height="170" alt="Hamza Velocity GT flash sale watch">';
+document.getElementById('whyWatchIcon').innerHTML = '<img src="https://tse1.mm.bing.net/th/id/OIP.HrJ8oKixd87fSQTQs2yMRQHaE3?r=0&pid=Api&h=220&P=0" width="260" height="260" alt="HAMZA watch quality">';
+document.getElementById('flashWaLink').href = waOrderLink(PRODUCTS[5]);
+
+/* Collection deco icons (larger, decorative) */
+document.getElementById('collDeco1').innerHTML = '<img src="https://raritywatches.com/wp-content/uploads/2023/01/Epos-3504-Diver-blue-3.jpg" width="220" height="220" alt="Diver collection watch">';
+document.getElementById('collDeco2').innerHTML = '<img src="https://tse3.mm.bing.net/th/id/OIP.RQwhuHGtYDldx5abOpOeHgHaJ4?r=0&pid=Api&h=220&P=0" width="220" height="220" alt="Chronograph collection watch">';
+document.getElementById('collDeco3').innerHTML = '<img src="https://i.pinimg.com/736x/19/2d/48/192d481a865a197a5b97a3a12fd32fc2.jpg" width="220" height="220" alt="Classic collection watch">';
+
+function setPersistentCookie(name, value){
+  document.cookie = `${name}=${encodeURIComponent(JSON.stringify(value))}; max-age=315360000; path=/; SameSite=Lax`;
+}
+function getPersistentCookie(name, fallback){
+  const entry = document.cookie.split('; ').find(item => item.startsWith(name+'='));
+  if(!entry) return fallback;
+  try{ return JSON.parse(decodeURIComponent(entry.slice(name.length+1))); }
+  catch(e){ return fallback; }
+}
+
+function toggleWish(btn){
+  btn.classList.toggle('active');
+  const productId = btn.dataset.productId;
+  if(productId){
+    const wishlist = new Set(getPersistentCookie('hamza_wishlist', []));
+    if(btn.classList.contains('active')) wishlist.add(productId); else wishlist.delete(productId);
+    setPersistentCookie('hamza_wishlist', [...wishlist]);
+  }
+}
+
+/* ============ CART ============ */
+let cart = getPersistentCookie('hamza_cart', {}); // id -> qty
+let checkoutDetails = getPersistentCookie('hamza_checkout', { name:'', address:'', phone:'' });
+
+function saveCart(){ setPersistentCookie('hamza_cart', cart); }
+
+function addToCart(id){
+  cart[id] = (cart[id]||0) + 1;
+  saveCart();
+  updateCartUI();
+  showToast('Added to cart');
+}
+function removeFromCart(id){
+  delete cart[id];
+  saveCart();
+  updateCartUI();
+}
+function changeQty(id, delta){
+  cart[id] = (cart[id]||0) + delta;
+  if(cart[id] <= 0) delete cart[id];
+  saveCart();
+  updateCartUI();
+}
+
+function updateCartUI(){
+  const ids = Object.keys(cart);
+  const count = ids.reduce((s,id)=>s+cart[id],0);
+  document.getElementById('cartCount').textContent = count;
+
+  const itemsEl = document.getElementById('cartItems');
+  const footEl = document.getElementById('cartFoot');
+
+  if(ids.length === 0){
+    itemsEl.innerHTML = `<div class="cart-empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <p>Your cart is empty.<br>Add a watch to get started.</p>
+    </div>`;
+    footEl.innerHTML = '';
+    return;
+  }
+
+  let total = 0;
+  itemsEl.innerHTML = ids.map(id=>{
+    const p = PRODUCTS.find(x=>x.id===id);
+    const qty = cart[id];
+    total += p.price*qty;
+    return `<div class="cart-line">
+      <div class="thumb"><img src="https://dummyimage.com/300x300/${p.accent.slice(1)}/ffffff.png?text=${p.id}+CART" width="46" height="46" alt="${p.name} cart item"></div>
+      <div class="cart-line-info">
+        <b>${p.name}</b>
+        <span class="price">₹${p.price.toLocaleString('en-IN')}</span>
+        <div class="cart-line-actions">
+          <div class="qty">
+            <button onclick="changeQty('${id}',-1)" aria-label="Decrease quantity">−</button>
+            <span>${qty}</span>
+            <button onclick="changeQty('${id}',1)" aria-label="Increase quantity">+</button>
+          </div>
+          <button class="remove-line" onclick="removeFromCart('${id}')">Remove</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const lines = ids.map(id=>{
+    const p = PRODUCTS.find(x=>x.id===id);
+    return `${cart[id]} x ${p.name} — ₹${(p.price*cart[id]).toLocaleString('en-IN')}`;
+  }).join('\n');
+  const customerDetails = `\n\nCustomer details:\nName: ${checkoutDetails.name || 'Not provided'}\nAddress: ${checkoutDetails.address || 'Not provided'}\nPhone: ${checkoutDetails.phone || 'Not provided'}`;
+  const waMsg = `Hi HAMZA, I'd like to order:\n\n${lines}\n\nTotal: ₹${total.toLocaleString('en-IN')}${customerDetails}\n\nPlease confirm availability and delivery.`;
+  const mailBody = `Hi HAMZA,\n\nI'd like to order:\n\n${lines}\n\nTotal: ₹${total.toLocaleString('en-IN')}${customerDetails}`;
+
+  footEl.innerHTML = `
+    <div class="cart-total"><span>Total</span><span>₹${total.toLocaleString('en-IN')}</span></div>
+    <div class="checkout-form">
+      <label for="checkout-name">Full name</label>
+      <input id="checkout-name" type="text" autocomplete="name" placeholder="Your full name" value="${checkoutDetails.name.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">
+      <label for="checkout-address">Full delivery address</label>
+      <textarea id="checkout-address" autocomplete="street-address" placeholder="House number, street, city, state, PIN code">${checkoutDetails.address.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</textarea>
+      <label for="checkout-phone">Phone number</label>
+      <input id="checkout-phone" type="tel" autocomplete="tel" placeholder="Your phone number" value="${checkoutDetails.phone.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">
+    </div>
+    <a class="btn btn-primary btn-block" data-checkout-link="whatsapp" href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waMsg)}" target="_blank" rel="noopener">Checkout via WhatsApp</a>
+    <a class="btn btn-outline btn-block" data-checkout-link="email" href="mailto:${EMAIL}?subject=${encodeURIComponent('HAMZA Watch Order')}&body=${encodeURIComponent(mailBody)}">Checkout via Email</a>
+  `;
+
+  const updateCheckoutLinks = () => {
+    checkoutDetails.name = document.getElementById('checkout-name').value.trim();
+    checkoutDetails.address = document.getElementById('checkout-address').value.trim();
+    checkoutDetails.phone = document.getElementById('checkout-phone').value.trim();
+    setPersistentCookie('hamza_checkout', checkoutDetails);
+    const details = `\n\nCustomer details:\nName: ${checkoutDetails.name || 'Not provided'}\nAddress: ${checkoutDetails.address || 'Not provided'}\nPhone: ${checkoutDetails.phone || 'Not provided'}`;
+    const currentWaMsg = `Hi HAMZA, I'd like to order:\n\n${lines}\n\nTotal: ₹${total.toLocaleString('en-IN')}${details}\n\nPlease confirm availability and delivery.`;
+    const currentMailBody = `Hi HAMZA,\n\nI'd like to order:\n\n${lines}\n\nTotal: ₹${total.toLocaleString('en-IN')}${details}`;
+    document.querySelector('[data-checkout-link="whatsapp"]').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(currentWaMsg)}`;
+    document.querySelector('[data-checkout-link="email"]').href = `mailto:${EMAIL}?subject=${encodeURIComponent('HAMZA Watch Order')}&body=${encodeURIComponent(currentMailBody)}`;
+  };
+  ['checkout-name','checkout-address','checkout-phone'].forEach(id => document.getElementById(id).addEventListener('input', updateCheckoutLinks));
+}
+updateCartUI();
+
+const cartDrawer = document.getElementById('cartDrawer');
+const overlay = document.getElementById('overlay');
+document.getElementById('cartBtn').addEventListener('click', ()=>{ cartDrawer.classList.add('show'); overlay.classList.add('show'); });
+document.getElementById('cartClose').addEventListener('click', closeCart);
+overlay.addEventListener('click', closeCart);
+function closeCart(){ cartDrawer.classList.remove('show'); overlay.classList.remove('show'); }
+
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=> t.classList.remove('show'), 2200);
+}
+
+/* ============ FLASH SALE COUNTDOWN ============ */
+let deadline = new Date();
+deadline.setHours(23,59,59,999);
+function tickTimer(){
+  const now = new Date();
+  let diff = Math.max(0, deadline - now);
+  const h = String(Math.floor(diff/3600000)).padStart(2,'0');
+  const m = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+  const s = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+  document.getElementById('fh').textContent = h;
+  document.getElementById('fm').textContent = m;
+  document.getElementById('fs').textContent = s;
+  if(diff<=0){ deadline.setDate(deadline.getDate()+1); }
+}
+tickTimer();
+setInterval(tickTimer, 1000);
+document.getElementById('flashBuyBtn').addEventListener('click', (e)=>{ e.preventDefault(); addToCart('p6'); document.getElementById('cartBtn').click(); });
+
+/* ============ MOBILE NAV MENU ============ */
+(function(){
+  const burger = document.getElementById('navBurger');
+  const links = document.getElementById('navLinks');
+  if(!burger || !links) return;
+  function closeMenu(){ links.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }
+  burger.addEventListener('click', ()=>{
+    const isOpen = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(isOpen));
+  });
+  links.querySelectorAll('a').forEach(a=> a.addEventListener('click', closeMenu));
+})();
+
+/* ============ HERO BACKGROUND VIDEO ============ */
+/* Put a file named "video.mp4" in the same folder as this HTML file and it will
+   play automatically as the hero background. If it's missing or fails to load,
+   the site falls back cleanly to the dark navy gradient — nothing breaks. */
+(function(){
+  const v = document.getElementById('heroVideo');
+  if(!v) return;
+  v.addEventListener('loadeddata', ()=> v.classList.add('loaded'));
+  v.addEventListener('error', ()=>{ v.style.display = 'none'; });
+  // Belt-and-braces: some browsers don't fire 'error' on the <video> when the
+  // file is simply missing — they just never load it. If nothing has loaded
+  // after a couple of seconds, hide the element so the gradient background shows.
+  setTimeout(()=>{
+    if(v.readyState === 0 && v.networkState !== 2){ v.style.display = 'none'; }
+  }, 2500);
+  // Some browsers block autoplay before user interaction even when muted;
+  // retry on first interaction so the video still starts.
+  const tryPlay = ()=> v.play().catch(()=>{});
+  tryPlay();
+  ['click','scroll','touchstart'].forEach(evt=>{
+    window.addEventListener(evt, tryPlay, {once:true, passive:true});
+  });
+})();
+
+/* ============ REVIEWS ============ */
+const REVIEWS = [
+  {name:'Rohit Sharma', init:'RS', text:'The Abyss Diver looks and feels far more expensive than what I paid. Ordering on WhatsApp was quicker than any app checkout I have used.', rating:5, color:'#1A73E8'},
+  {name:'Ayesha Khan', init:'AK', text:'Bought the Regent Classic for my husband — the box, the weight, the finish, all felt premium. Delivery was 3 days, cash on delivery worked perfectly.', rating:5, color:'#C9A961'},
+  {name:'Vikram Patel', init:'VP', text:'Was skeptical about buying a watch over WhatsApp, but the team answered every question before I paid. The Velocity GT chronograph is stunning in person.', rating:4, color:'#D64545'},
+  {name:'Sneha Reddy', init:'SR', text:'Luna Rose is my third HAMZA watch. Consistent quality, and the 2-year warranty actually got honored when I needed a strap replacement.', rating:5, color:'#8A6512'},
+  {name:'Farhan Ali', init:'FA', text:'The Titan X Skeleton dial is a genuine conversation starter. Packaging alone felt like unboxing something twice the price.', rating:5, color:'#5B9DFF'},
+  {name:'Meera Nair', init:'MN', text:'Ordered the Onyx Field for hiking trips. Sapphire coating has survived two years of scrapes without a scratch.', rating:4, color:'#8FA0B5'},
+];
+document.getElementById('reviewsTrack').innerHTML = REVIEWS.map(r=>`
+  <div class="review-card reveal in">
+    <div class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+    <p>"${r.text}"</p>
+    <div class="review-who">
+      <div class="review-avatar" style="background:${r.color}">${r.init}</div>
+      <div><b>${r.name}</b><span>Verified Buyer</span></div>
+    </div>
+  </div>
+`).join('');
+
+/* ============ FAQ ============ */
+const FAQS = [
+  {q:'How do I place an order?', a:'Pick a watch, add it to your cart (or note the name), then tap "Order via WhatsApp" or email us — your order details are filled in automatically. A real team member confirms availability and delivery.'},
+  {q:'Is cash on delivery available?', a:'Yes, COD is available pan-India on most pincodes. We\'ll confirm this with you over WhatsApp when you place your order.'},
+  {q:'What is the warranty?', a:'Every HAMZA watch ships with a 2-year warranty covering the movement and case. Straps and glass are covered for manufacturing defects for 6 months.'},
+  {q:'How long does delivery take?', a:'Orders typically ship within 48 hours and arrive within 3–6 business days depending on your location.'},
+  {q:'Can I return a watch?', a:'Yes — unworn watches in original packaging can be returned within 14 days of delivery. Message us on WhatsApp to start a return.'},
+];
+document.getElementById('faqList').innerHTML = FAQS.map((f,i)=>`
+  <div class="faq-item reveal in">
+    <div class="faq-q" onclick="toggleFaq(${i})">
+      <h4>${f.q}</h4>
+      <span class="faq-plus"></span>
+    </div>
+    <div class="faq-a" id="faqA${i}"><p>${f.a}</p></div>
+  </div>
+`).join('');
+function toggleFaq(i){
+  const items = document.querySelectorAll('.faq-item');
+  const item = items[i];
+  const a = document.getElementById('faqA'+i);
+  const isOpen = item.classList.contains('open');
+  items.forEach((it,idx)=>{ it.classList.remove('open'); document.getElementById('faqA'+idx).style.maxHeight = null; });
+  if(!isOpen){ item.classList.add('open'); a.style.maxHeight = a.scrollHeight+'px'; }
+}
+
+/* ============ SCROLL REVEAL (with safety fallback so content never stays hidden) ============ */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:0, rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// Fallback: if any reveal element hasn't animated in after 2.5s (fast-scroll, anchor jump,
+// reduced-motion, or a slow observer callback), force it visible so nothing is ever stuck hidden.
+setTimeout(()=>{ document.querySelectorAll('.reveal:not(.in)').forEach(el=>el.classList.add('in')); }, 2500);
+</script>
+</body>
+</html>
