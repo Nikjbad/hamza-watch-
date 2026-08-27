@@ -737,14 +737,15 @@
     <a href="#" class="logo"><span class="dot"></span> HAMZA</a>
     <nav class="nav-links" id="navLinks">
       <button class="nav-close" id="navClose" type="button" aria-label="Close menu">&times;</button>
-      <a href="#collections">Collections</a>
-      <a href="#brands">Brands</a>
-      <a href="#bestsellers">Best Sellers</a>
-      <a href="#sales">All Deals</a>
+      <a href="shop.html#collections">Collections</a>
+      <a href="shop.html#collections">Brands</a>
+      <a href="shop.html#bestsellers">Best Sellers</a>
+      <a href="shop.html#bestsellers">All Deals</a>
       <a href="#flashsale">Deal of the Day</a>
       <a href="#reviews">Reviews</a>
       <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
+      <a href="about.html">Our Story</a>
+      <a href="contact.html">Contact</a>
     </nav>
     <div class="nav-right">
       <div class="search-wrap" id="searchWrap">
@@ -761,7 +762,8 @@
         <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         <span class="cart-count" id="cartCount">0</span>
       </button>
-      <a href="#bestsellers" class="btn btn-primary btn-sm">Shop Now</a>
+      <a href="#cart" class="btn btn-outline btn-sm" style="color:#fff;border-color:var(--line-dark);">Cart</a>
+      <a href="shop.html" class="btn btn-primary btn-sm">Shop Now</a>
       <button class="icon-btn nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
@@ -1062,11 +1064,11 @@
       <div>
         <h5>Shop</h5>
         <ul>
-          <li><a href="#collections">Diver</a></li>
-          <li><a href="#collections">Chronograph</a></li>
-          <li><a href="#collections">Classic</a></li>
-          <li><a href="#brands">Brands</a></li>
-          <li><a href="#sales">All Deals</a></li>
+          <li><a href="shop.html#collections">Diver</a></li>
+          <li><a href="shop.html#collections">Chronograph</a></li>
+          <li><a href="shop.html#collections">Classic</a></li>
+          <li><a href="shop.html#collections">Brands</a></li>
+          <li><a href="shop.html#bestsellers">All Deals</a></li>
         </ul>
       </div>
       <div>
@@ -1075,7 +1077,7 @@
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#order-flow">Shipping &amp; Delivery</a></li>
           <li><a href="#order-flow">Returns</a></li>
-          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
         </ul>
       </div>
       <div>
@@ -1151,6 +1153,38 @@ const PRODUCTS = [
   {id:'p8', name:'Hamza Titan X Skeleton', cat:'Diver', brand:'Hamza Marine', price:6499, old:11999, rating:4.9, reviews:310, badge:'limited', badgeLabel:'PREMIUM',
     desc:'Open-worked skeleton dial exposing the movement — our most technical piece.',
     specs:{Movement:'Automatic skeleton', Case:'44mm · Steel', 'Water Resist.':'100m', Strap:'Steel bracelet', Crystal:'Sapphire-coated'}},
+  {id:'p9', name:'Hamza Coastline GMT', cat:'Diver', brand:'Hamza Marine', price:5799, old:9999, rating:4.8, reviews:275, badge:'new', badgeLabel:'NEW',
+    desc:'A travel-ready GMT hand and ocean-blue dial for crossing time zones.',
+    specs:{Movement:'Automatic GMT', Case:'41mm · 316L Steel', 'Water Resist.':'100m', Strap:'Steel bracelet', Crystal:'Sapphire-coated'}},
+  {id:'p10', name:'Hamza Noir Dress', cat:'Classic', brand:'Hamza Heritage', price:3599, old:5999, rating:4.7, reviews:340, badge:'sale', badgeLabel:'SALE',
+    desc:'Minimal black dial, slim case and a strap that softens with wear.',
+    specs:{Movement:'Quartz', Case:'38mm · Steel', 'Water Resist.':'30m', Strap:'Leather', Crystal:'Mineral'}},
+  {id:'p11', name:'Hamza Paddock Timer', cat:'Chronograph', brand:'Hamza Chrono', price:4699, old:7999, rating:4.8, reviews:220, badge:'sale', badgeLabel:'SALE',
+    desc:'A compact racing chronograph with a clean, readable layout.',
+    specs:{Movement:'Quartz chronograph', Case:'40mm · Steel', 'Water Resist.':'50m', Strap:'Leather', Crystal:'Sapphire-coated'}},
+  {id:'p12', name:'Hamza Terra Scout', cat:'Field', brand:'Hamza Field', price:2899, old:4999, rating:4.6, reviews:180, badge:'new', badgeLabel:'NEW',
+    desc:'Lightweight, water-resistant and built around a dial you can read at a glance.',
+    specs:{Movement:'Quartz', Case:'40mm · Steel', 'Water Resist.':'100m', Strap:'Nylon NATO', Crystal:'Mineral'}},
+  {id:'p13', name:'Hamza Deep Current', cat:'Diver', brand:'Hamza Marine', price:5199, old:8999, rating:4.8, reviews:146, badge:'sale', badgeLabel:'SALE', desc:'A blue-dial diver with a steel bracelet and high-contrast lume.', specs:{Movement:'Automatic', Case:'41mm · Steel', 'Water Resist.':'200m', Strap:'Steel bracelet', Crystal:'Sapphire-coated'}},
+  {id:'p14', name:'Hamza Bluewater 300', cat:'Diver', brand:'Hamza Marine', price:6999, old:12499, rating:4.9, reviews:98, badge:'limited', badgeLabel:'LIMITED', desc:'A serious dive companion with a ceramic bezel and screw-down crown.', specs:{Movement:'Automatic', Case:'43mm · Steel', 'Water Resist.':'300m', Strap:'Steel bracelet', Crystal:'Sapphire-coated'}},
+  {id:'p15', name:'Hamza Harbour Date', cat:'Diver', brand:'Hamza Marine', price:4499, old:7499, rating:4.7, reviews:121, badge:'new', badgeLabel:'NEW', desc:'An easy-wearing everyday diver with a practical date window.', specs:{Movement:'Quartz', Case:'40mm · Steel', 'Water Resist.':'100m', Strap:'Rubber', Crystal:'Mineral'}},
+  {id:'p16', name:'Hamza Meridian Black', cat:'Chronograph', brand:'Hamza Chrono', price:5799, old:9999, rating:4.8, reviews:115, badge:'sale', badgeLabel:'SALE', desc:'A blacked-out chronograph with crisp white timing registers.', specs:{Movement:'Quartz chronograph', Case:'42mm · Steel', 'Water Resist.':'100m', Strap:'Steel bracelet', Crystal:'Sapphire-coated'}},
+  {id:'p17', name:'Hamza Rally One', cat:'Chronograph', brand:'Hamza Chrono', price:4999, old:8499, rating:4.7, reviews:88, badge:'new', badgeLabel:'NEW', desc:'A compact motorsport-inspired chronograph for fast-moving days.', specs:{Movement:'Quartz chronograph', Case:'40mm · Steel', 'Water Resist.':'50m', Strap:'Leather', Crystal:'Mineral'}},
+  {id:'p18', name:'Hamza Tachymeter', cat:'Chronograph', brand:'Hamza Chrono', price:6299, old:10999, rating:4.9, reviews:74, badge:'limited', badgeLabel:'LIMITED', desc:'A detailed tachymeter bezel and layered dial reward a closer look.', specs:{Movement:'Automatic chronograph', Case:'42mm · Steel', 'Water Resist.':'100m', Strap:'Steel bracelet', Crystal:'Sapphire-coated'}},
+  {id:'p19', name:'Hamza Grand Date', cat:'Classic', brand:'Hamza Heritage', price:4299, old:7299, rating:4.8, reviews:132, badge:'best', badgeLabel:'FAVOURITE', desc:'A refined silver dial with a useful oversized date display.', specs:{Movement:'Quartz', Case:'39mm · Steel', 'Water Resist.':'30m', Strap:'Leather', Crystal:'Mineral'}},
+  {id:'p20', name:'Hamza Ivory 38', cat:'Classic', brand:'Hamza Heritage', price:3899, old:6499, rating:4.7, reviews:104, badge:'new', badgeLabel:'NEW', desc:'Warm ivory dial details and a slim case for formal occasions.', specs:{Movement:'Quartz', Case:'38mm · Steel', 'Water Resist.':'30m', Strap:'Leather', Crystal:'Mineral'}},
+  {id:'p21', name:'Hamza Regent Steel', cat:'Classic', brand:'Hamza Heritage', price:4599, old:7999, rating:4.8, reviews:86, badge:'sale', badgeLabel:'SALE', desc:'A polished steel bracelet brings the Regent silhouette into the week.', specs:{Movement:'Quartz', Case:'40mm · Steel', 'Water Resist.':'50m', Strap:'Steel bracelet', Crystal:'Sapphire-coated'}},
+  {id:'p22', name:'Hamza Evening Blue', cat:'Classic', brand:'Hamza Heritage', price:4199, old:6999, rating:4.7, reviews:67, badge:'new', badgeLabel:'NEW', desc:'Deep midnight blue and brushed indices for after-hours wear.', specs:{Movement:'Quartz', Case:'39mm · Steel', 'Water Resist.':'30m', Strap:'Leather', Crystal:'Mineral'}},
+  {id:'p23', name:'Hamza Trailmaster', cat:'Field', brand:'Hamza Field', price:3199, old:5499, rating:4.7, reviews:142, badge:'best', badgeLabel:'FAVOURITE', desc:'A rugged field dial with luminous numerals and a comfortable NATO strap.', specs:{Movement:'Quartz', Case:'40mm · Steel', 'Water Resist.':'100m', Strap:'Nylon NATO', Crystal:'Mineral'}},
+  {id:'p24', name:'Hamza Expedition', cat:'Field', brand:'Hamza Field', price:3699, old:6299, rating:4.8, reviews:95, badge:'sale', badgeLabel:'SALE', desc:'A larger field case designed for cold-weather legibility.', specs:{Movement:'Automatic', Case:'42mm · Steel', 'Water Resist.':'100m', Strap:'Canvas', Crystal:'Sapphire-coated'}},
+  {id:'p25', name:'Hamza Utility Black', cat:'Field', brand:'Hamza Field', price:2999, old:4999, rating:4.6, reviews:81, badge:'new', badgeLabel:'NEW', desc:'A stealthy everyday watch with a clean black dial and matte case.', specs:{Movement:'Quartz', Case:'40mm · Steel', 'Water Resist.':'100m', Strap:'Rubber', Crystal:'Mineral'}},
+  {id:'p26', name:'Hamza North Star', cat:'Field', brand:'Hamza Field', price:3399, old:5799, rating:4.7, reviews:73, badge:'sale', badgeLabel:'SALE', desc:'A bright compass-inspired dial made for early starts and late returns.', specs:{Movement:'Quartz', Case:'41mm · Steel', 'Water Resist.':'100m', Strap:'Nylon NATO', Crystal:'Mineral'}},
+  {id:'p27', name:'Hamza Coast Guard', cat:'Diver', brand:'Hamza Marine', price:4899, old:8299, rating:4.8, reviews:63, badge:'new', badgeLabel:'NEW', desc:'A bright orange seconds hand gives this compact diver instant character.', specs:{Movement:'Quartz', Case:'40mm · Steel', 'Water Resist.':'200m', Strap:'Rubber', Crystal:'Sapphire-coated'}},
+  {id:'p28', name:'Hamza Port Royal', cat:'Diver', brand:'Hamza Marine', price:5599, old:9499, rating:4.8, reviews:59, badge:'sale', badgeLabel:'SALE', desc:'A dressier marine silhouette with a sunburst ocean dial.', specs:{Movement:'Automatic', Case:'41mm · Steel', 'Water Resist.':'100m', Strap:'Steel bracelet', Crystal:'Sapphire-coated'}},
+  {id:'p29', name:'Hamza Split Second', cat:'Chronograph', brand:'Hamza Chrono', price:5399, old:8999, rating:4.7, reviews:61, badge:'sale', badgeLabel:'SALE', desc:'A balanced two-register chronograph with a comfortable leather strap.', specs:{Movement:'Quartz chronograph', Case:'41mm · Steel', 'Water Resist.':'50m', Strap:'Leather', Crystal:'Mineral'}},
+  {id:'p30', name:'Hamza Circuit Red', cat:'Chronograph', brand:'Hamza Chrono', price:5899, old:9999, rating:4.8, reviews:52, badge:'new', badgeLabel:'NEW', desc:'Red timing accents energise a graphite dial built for quick reads.', specs:{Movement:'Quartz chronograph', Case:'42mm · Steel', 'Water Resist.':'100m', Strap:'Steel bracelet', Crystal:'Sapphire-coated'}},
+  {id:'p31', name:'Hamza Linen Dial', cat:'Classic', brand:'Hamza Heritage', price:3499, old:5799, rating:4.6, reviews:48, badge:'sale', badgeLabel:'SALE', desc:'A textured linen dial gives this restrained classic a tactile finish.', specs:{Movement:'Quartz', Case:'38mm · Steel', 'Water Resist.':'30m', Strap:'Leather', Crystal:'Mineral'}},
+  {id:'p32', name:'Hamza Copper Hour', cat:'Classic', brand:'Hamza Heritage', price:4799, old:7999, rating:4.8, reviews:43, badge:'limited', badgeLabel:'LIMITED', desc:'Copper-toned details and a domed crystal make a distinctive evening piece.', specs:{Movement:'Automatic', Case:'40mm · Steel', 'Water Resist.':'50m', Strap:'Leather', Crystal:'Sapphire-coated'}},
 ];
 
 const PRODUCT_IMAGES = {
@@ -1161,7 +1195,21 @@ const PRODUCT_IMAGES = {
   p5:'https://packersshoppro.com/wp-content/uploads/2020/08/Aviator-Watches.jpg',
   p6:'https://consumer.huawei.com/dam/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-gt6/list46mm-green.png',
   p7:'https://sedgars.com/cdn/shop/files/s-l960_886ad8a7-2ff3-41f1-9e74-fab863bd55b7.webp?v=1772104966',
-  p8:'https://www.datocms-assets.com/99008/1697469125-epic_x_black-red.webp'
+  p8:'https://www.datocms-assets.com/99008/1697469125-epic_x_black-red.webp',
+  p9:'https://raritywatches.com/wp-content/uploads/2023/01/Epos-3504-Diver-blue-3.jpg',
+  p10:'https://static1.pocketnowimages.com/wordpress/wp-content/uploads/2023/07/pbi-samsung-galaxy-watch-6.png',
+  p11:'https://www.gearpatrol.com/wp-content/uploads/sites/2/2025/03/timex-waterbury-heritage-chronograph-silver-front-gear-patrol-jpg.webp',
+  p12:'https://packersshoppro.com/wp-content/uploads/2020/08/Aviator-Watches.jpg',
+  p13:'https://raritywatches.com/wp-content/uploads/2023/01/Epos-3504-Diver-blue-3.jpg', p14:'https://www.datocms-assets.com/99008/1697469125-epic_x_black-red.webp',
+  p15:'https://www.king-wear.com/photo/pl198789280-kw252a_premium_classic_design_amoled_smart_watch.jpg', p16:'https://img4.dhresource.com/webp/m/0x0/f3/albu/jc/z/21/d73bf664-1ea1-4718-b263-5f82562e338a.jpg',
+  p17:'https://www.gearpatrol.com/wp-content/uploads/sites/2/2025/03/timex-waterbury-heritage-chronograph-silver-front-gear-patrol-jpg.webp', p18:'https://consumer.huawei.com/dam/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-gt6/list46mm-green.png',
+  p19:'https://content.thewosgroup.com/productimage/17532560/17532560_2.jpg?impolicy=lister', p20:'https://sedgars.com/cdn/shop/files/s-l960_886ad8a7-2ff3-41f1-9e74-fab863bd55b7.webp?v=1772104966',
+  p21:'https://static1.pocketnowimages.com/wordpress/wp-content/uploads/2023/07/pbi-samsung-galaxy-watch-6.png', p22:'https://content.thewosgroup.com/productimage/17532560/17532560_2.jpg?impolicy=lister',
+  p23:'https://packersshoppro.com/wp-content/uploads/2020/08/Aviator-Watches.jpg', p24:'https://images.stockcake.com/public/8/4/5/845e52db-963d-4b50-97a8-85aa37ad4b2b/luxury-chronograph-timepiece-stockcake.jpg',
+  p25:'https://www.datocms-assets.com/99008/1697469125-epic_x_black-red.webp', p26:'https://packersshoppro.com/wp-content/uploads/2020/08/Aviator-Watches.jpg',
+  p27:'https://raritywatches.com/wp-content/uploads/2023/01/Epos-3504-Diver-blue-3.jpg', p28:'https://www.king-wear.com/photo/pl198789280-kw252a_premium_classic_design_amoled_smart_watch.jpg',
+  p29:'https://img4.dhresource.com/webp/m/0x0/f3/albu/jc/z/21/d73bf664-1ea1-4718-b263-5f82562e338a.jpg', p30:'https://consumer.huawei.com/dam/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-gt6/list46mm-green.png',
+  p31:'https://sedgars.com/cdn/shop/files/s-l960_886ad8a7-2ff3-41f1-9e74-fab863bd55b7.webp?v=1772104966', p32:'https://static1.pocketnowimages.com/wordpress/wp-content/uploads/2023/07/pbi-samsung-galaxy-watch-6.png'
 };
 
 const BRAND_IMAGES = {
@@ -1258,8 +1306,9 @@ function productCardHTML(p){
 
 /* ============ RENDER PRODUCT GRID (best sellers, with category + brand filter) ============ */
 const grid = document.getElementById('productGrid');
+const HOME_FEATURED_IDS = new Set(['p1','p2','p3','p4','p5','p6','p7','p8']);
 function renderGrid(){
-  let list = PRODUCTS.filter(p => currentCategory==='all' || p.cat===currentCategory);
+  let list = PRODUCTS.filter(p => HOME_FEATURED_IDS.has(p.id) && (currentCategory==='all' || p.cat===currentCategory));
   if(currentBrand) list = list.filter(p => p.brand === currentBrand);
   grid.innerHTML = list.length
     ? list.map(productCardHTML).join('')
@@ -1311,22 +1360,15 @@ function uniqueBrands(){ return [...new Set(PRODUCTS.map(p=>p.brand))]; }
 function renderBrands(){
   brandGrid.innerHTML = uniqueBrands().map(b=>{
     const count = PRODUCTS.filter(p=>p.brand===b).length;
-    return `<div class="brand-card reveal in ${currentBrand===b?'active':''}" data-brand="${b}">
+    return `<a class="brand-card reveal in ${currentBrand===b?'active':''}" data-brand="${b}" href="brand.html?brand=${encodeURIComponent(b)}">
       <div class="brand-media"><img src="${BRAND_IMAGES[b]}" alt="${b} line" loading="lazy"></div>
       <h4>${b}</h4>
       <span>${count} WATCH${count>1?'ES':''}</span>
-    </div>`;
+    </a>`;
   }).join('');
-  brandGrid.querySelectorAll('.brand-card').forEach(card=>{
-    card.addEventListener('click', ()=>{
-      const b = card.dataset.brand;
-      currentBrand = (currentBrand === b) ? null : b;
-      renderBrands();
-      renderGrid();
-      document.getElementById('brandClearWrap').style.display = currentBrand ? 'flex' : 'none';
-      document.getElementById('bestsellers').scrollIntoView({behavior:'smooth', block:'start'});
-    });
-  });
+  brandGrid.querySelectorAll('.brand-card').forEach(card=> card.addEventListener('click', ()=>{
+    currentBrand = card.dataset.brand;
+  }));
 }
 document.getElementById('brandClearBtn').addEventListener('click', clearBrandFilter);
 renderBrands();
@@ -1335,7 +1377,7 @@ renderGrid();
 /* ============ SALES SECTION (all discounted watches, biggest saving first) ============ */
 const salesGrid = document.getElementById('salesGrid');
 function renderSales(){
-  const list = [...PRODUCTS].sort((a,b)=> (1-b.price/b.old) - (1-a.price/a.old));
+  const list = PRODUCTS.filter(p=>p.badge==='sale').sort((a,b)=> (1-b.price/b.old) - (1-a.price/a.old));
   salesGrid.innerHTML = list.map(productCardHTML).join('');
 }
 renderSales();
@@ -1570,6 +1612,8 @@ document.getElementById('cartBtn').addEventListener('click', ()=>{ cartDrawer.cl
 document.getElementById('cartClose').addEventListener('click', closeCart);
 overlay.addEventListener('click', ()=>{ closeCart(); closeProduct(); });
 function closeCart(){ cartDrawer.classList.remove('show'); overlay.classList.remove('show'); }
+if(location.hash === '#cart') document.getElementById('cartBtn').click();
+window.addEventListener('hashchange', ()=>{ if(location.hash === '#cart') document.getElementById('cartBtn').click(); });
 
 let toastTimer;
 function showToast(msg){
