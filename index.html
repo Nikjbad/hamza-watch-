@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>HAMZA — Precision Timepieces</title>
 <meta name="description" content="HAMZA — premium watches, direct to your door. Order via WhatsApp or Email.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 <style>
   :root{
     --ink:#0A0E1A;
@@ -70,7 +71,8 @@
   .btn-outline:hover{background:var(--paper-2);}
   .btn-sm{padding:10px 18px;font-size:13px;}
   .btn-block{width:100%;}
-  .btn:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible{
+  .btn:disabled{opacity:0.55;cursor:not-allowed;transform:none !important;}
+  .btn:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
     outline:2.5px solid var(--blue-light); outline-offset:3px; border-radius:8px;
   }
 
@@ -90,8 +92,8 @@
     background:rgba(10,14,26,0.72); backdrop-filter:blur(18px) saturate(140%);
     border-bottom:1px solid var(--line-dark);
   }
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:1240px;margin:0 auto;}
-  .logo{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:700;font-size:22px;color:#fff;letter-spacing:0.01em;}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:1240px;margin:0 auto;gap:14px;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:700;font-size:22px;color:#fff;letter-spacing:0.01em;flex-shrink:0;}
   .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--blue);box-shadow:0 0 14px 3px var(--blue-light);}
   .nav-links{display:flex;gap:32px;}
   .nav-links a{color:rgba(255,255,255,0.78);font-size:14.5px;font-weight:500;transition:color .2s;}
@@ -100,7 +102,7 @@
   .nav-right{display:flex;align-items:center;gap:14px;}
   .icon-btn{
     position:relative; width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-    background:rgba(255,255,255,0.06); border:1px solid var(--line-dark); color:#fff; transition:.2s;
+    background:rgba(255,255,255,0.06); border:1px solid var(--line-dark); color:#fff; transition:.2s;flex-shrink:0;
   }
   .icon-btn:hover{background:rgba(255,255,255,0.14);}
   .cart-count{
@@ -111,9 +113,30 @@
   .nav-toggle{display:none;}
   .nav-burger{display:none;}
 
+  /* search */
+  .search-wrap{position:relative; display:flex; align-items:center;}
+  .search-input{
+    width:0; opacity:0; padding:0; border:none; background:rgba(255,255,255,0.08); color:#fff; border-radius:100px;
+    font-size:13.5px; transition:width .3s ease, opacity .2s ease, padding .3s ease; pointer-events:none;
+  }
+  .search-input::placeholder{color:rgba(255,255,255,0.45);}
+  .search-wrap.open .search-input{width:220px; opacity:1; padding:10px 16px; pointer-events:auto; margin-right:2px;}
+  .search-results-panel{
+    position:absolute; top:52px; right:0; width:340px; max-width:88vw; max-height:420px; overflow-y:auto; background:#fff;
+    border-radius:16px; box-shadow:var(--shadow-lg); border:1px solid var(--line); z-index:300; display:none; padding:10px;
+  }
+  .search-results-panel.show{display:block;}
+  .search-result-row{display:flex; gap:12px; align-items:center; padding:10px; border-radius:12px; transition:.15s;}
+  .search-result-row:hover{background:var(--paper-2);}
+  .search-result-row img{width:44px;height:44px;object-fit:contain;border-radius:8px;background:var(--paper-2);flex-shrink:0;}
+  .search-result-row .sr-info{flex:1; min-width:0;}
+  .search-result-row b{font-size:13.5px; display:block;}
+  .search-result-row span{font-size:12px; color:var(--slate-2);}
+  .search-empty{padding:24px 14px; text-align:center; color:var(--slate-2); font-size:13.5px;}
+
   /* ================= HERO ================= */
   .hero{
-    position:relative; min-height:100vh; background:
+    position:relative; min-height:100vh; min-height:100dvh; background:
       radial-gradient(ellipse 900px 600px at 78% 18%, rgba(26,115,232,0.30), transparent 60%),
       radial-gradient(ellipse 700px 500px at 15% 85%, rgba(201,169,97,0.14), transparent 60%),
       linear-gradient(180deg,#080B14 0%, #0A0E1A 55%, #0D1226 100%);
@@ -149,6 +172,13 @@
   }
   .hero h1 em{font-style:italic; font-weight:300; color:var(--gold-light); position:relative;}
   .hero p.lead{font-size:18px; color:rgba(255,255,255,0.68); max-width:460px; margin-bottom:34px; font-weight:400;}
+  .hero-search{
+    display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.07); border:1px solid var(--line-dark);
+    border-radius:100px; padding:6px 8px 6px 20px; max-width:460px; margin-bottom:30px;
+  }
+  .hero-search input{flex:1; background:none; border:none; color:#fff; font-size:14.5px; padding:8px 0;}
+  .hero-search input::placeholder{color:rgba(255,255,255,0.4);}
+  .hero-search button{width:38px;height:38px;border-radius:50%;background:var(--blue); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
   .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px;}
   .hero-stats{display:flex; gap:36px; flex-wrap:wrap;}
   .hero-stats div b{display:block; font-family:'Fraunces',serif; font-size:26px; font-weight:600; color:#fff;}
@@ -193,7 +223,7 @@
     background:linear-gradient(160deg,#131A31,#0B0F1F); border:1px solid var(--line-dark); border-radius:24px; padding:40px;
     display:flex; align-items:center; gap:32px; box-shadow:var(--shadow-lg); position:relative;
   }
-  .flash-card .watch-icon-wrap{width:190px; height:190px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:8px; border:1px solid rgba(228,206,149,.5); border-radius:24px; background:rgba(255,255,255,.06); box-shadow:0 0 0 7px rgba(201,169,97,.06), 0 18px 36px rgba(0,0,0,.28); overflow:hidden; animation:imageFloat 5s ease-in-out infinite;}
+  .flash-card .watch-icon-wrap{width:190px; height:190px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:8px; border:1px solid rgba(228,206,149,.5); border-radius:24px; background:rgba(255,255,255,.06); box-shadow:0 0 0 7px rgba(201,169,97,.06), 0 18px 36px rgba(0,0,0,.28); overflow:hidden; animation:imageFloat 5s ease-in-out infinite; cursor:pointer;}
   .flash-card .watch-icon-wrap img{width:100%; height:100%; object-fit:cover; border-radius:18px; transition:transform .45s ease, filter .45s ease;}
   .flash-card:hover .watch-icon-wrap img{transform:scale(1.08) rotate(2deg); filter:saturate(1.12) contrast(1.05);}
   @keyframes imageFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
@@ -229,6 +259,20 @@
   .coll-card:hover .coll-watch-deco{transform:rotate(-4deg) scale(1.05); opacity:1;}
   .coll-card:hover .coll-watch-deco img{transform:scale(1.06); filter:saturate(1.15) brightness(1.08);}
 
+  /* ================= BRANDS ================= */
+  .brands{background:var(--paper-2);}
+  .brand-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  .brand-card{
+    background:#fff; border:1px solid var(--line); border-radius:18px; padding:26px 22px; text-align:center;
+    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease; cursor:pointer;
+  }
+  .brand-card:hover, .brand-card.active{transform:translateY(-6px); box-shadow:var(--shadow-md); border-color:var(--blue);}
+  .brand-card .brand-media{height:110px; display:flex; align-items:center; justify-content:center; margin-bottom:14px;}
+  .brand-card .brand-media img{max-height:100%; max-width:100%; object-fit:contain; border-radius:12px;}
+  .brand-card h4{font-size:16px; margin-bottom:4px;}
+  .brand-card span{font-size:12px; color:var(--slate-2); font-family:'JetBrains Mono',monospace;}
+  .brand-clear{display:flex; justify-content:center; margin-top:20px;}
+
   /* ================= PRODUCTS (Amazon-style grid) ================= */
   .filter-bar{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:36px;}
   .chip{
@@ -236,6 +280,8 @@
     transition:.2s;
   }
   .chip.active, .chip:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
+  .active-filter-note{display:flex; align-items:center; gap:10px; margin:-20px 0 28px; font-size:13.5px; color:var(--slate);}
+  .active-filter-note button{color:var(--blue); font-weight:700;}
   .product-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
   .p-card{
     background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 20px 22px; position:relative; overflow:hidden;
@@ -256,12 +302,13 @@
   }
   .p-wish:hover, .p-wish.active{color:#E1435A; background:#FEECEF; border-color:#FEECEF;}
   .p-media{
-    height:190px; border-radius:14px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; position:relative; overflow:hidden; border:1px solid var(--line); box-shadow:inset 0 0 0 5px rgba(255,255,255,.08), 0 8px 18px rgba(10,14,26,.08);
+    height:190px; border-radius:14px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; position:relative; overflow:hidden; border:1px solid var(--line); box-shadow:inset 0 0 0 5px rgba(255,255,255,.08), 0 8px 18px rgba(10,14,26,.08); cursor:pointer;
   }
   .p-media img{width:100%; height:100%; padding:10px; object-fit:contain; filter:drop-shadow(0 16px 20px rgba(0,0,0,0.18)); transition:transform .5s cubic-bezier(.2,.8,.3,1), filter .5s ease;}
   .p-card:hover .p-media img{transform:scale(1.08) rotate(-2deg); filter:drop-shadow(0 20px 24px rgba(0,0,0,.28)) saturate(1.08);}
-  .p-cat{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.08em; color:var(--slate-2); text-transform:uppercase; margin-bottom:6px;}
-  .p-name{font-size:16.5px; font-weight:700; font-family:'Inter',sans-serif; margin-bottom:6px; line-height:1.3;}
+  .p-cat{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.08em; color:var(--slate-2); text-transform:uppercase; margin-bottom:6px; display:flex; justify-content:space-between; gap:6px;}
+  .p-name{font-size:16.5px; font-weight:700; font-family:'Inter',sans-serif; margin-bottom:6px; line-height:1.3; cursor:pointer;}
+  .p-name:hover{color:var(--blue);}
   .p-rating{display:flex; align-items:center; gap:6px; margin-bottom:10px;}
   .p-rating .stars{color:var(--gold); font-size:13px; letter-spacing:1px;}
   .p-rating span{font-size:12px; color:var(--slate-2); font-family:'JetBrains Mono',monospace;}
@@ -271,6 +318,11 @@
   .p-price .off{font-size:11.5px; color:#1B8A45; font-weight:700;}
   .p-actions{display:flex; gap:8px;}
   .p-actions .btn{flex:1; padding:11px 10px; font-size:12.8px;}
+  .empty-state{text-align:center; padding:60px 20px; color:var(--slate);}
+
+  /* ================= SALES SECTION ================= */
+  .sales-sec{background:linear-gradient(180deg,#FFF8F0,var(--paper) 20%);}
+  .sales-sec .p-badge.sale{position:static; display:inline-block; margin-bottom:8px;}
 
   /* ================= WHY / SPLIT ================= */
   .why{background:var(--ink); color:#fff; position:relative; overflow:hidden;}
@@ -381,13 +433,18 @@
   .qty{display:flex; align-items:center; gap:10px; border:1px solid var(--line); border-radius:100px; padding:4px 10px;}
   .qty button{font-weight:700; width:16px;}
   .remove-line{font-size:12px; color:#C4362C; font-weight:600;}
-  .cart-foot{padding:20px 24px 26px; border-top:1px solid var(--line);}
+  .cart-foot{padding:20px 24px 26px; border-top:1px solid var(--line); overflow-y:auto; max-height:60vh;}
   .cart-total{display:flex; justify-content:space-between; margin-bottom:16px; font-size:16px; font-weight:700;}
-  .checkout-form{display:flex; flex-direction:column; gap:9px; margin-bottom:16px;}
+  .checkout-form{display:flex; flex-direction:column; gap:9px; margin-bottom:12px;}
   .checkout-form label{font-size:12px; font-weight:700; color:var(--slate);}
   .checkout-form input,.checkout-form textarea{width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:10px; font:inherit; font-size:13px; color:var(--text); background:#fff;}
-  .checkout-form textarea{min-height:72px; resize:vertical;}
+  .checkout-form textarea{min-height:64px; resize:vertical;}
   .checkout-form input:focus,.checkout-form textarea:focus{outline:2px solid var(--blue-light); outline-offset:1px;}
+  .locate-row{display:flex; gap:8px; margin-bottom:12px;}
+  .locate-row .btn{flex:1; font-size:12.5px; padding:10px 12px;}
+  .locate-status{font-size:12px; color:var(--slate-2); margin:-6px 0 12px; min-height:14px;}
+  .map-box{height:200px; border-radius:12px; overflow:hidden; margin-bottom:14px; border:1px solid var(--line); display:none;}
+  .map-box.show{display:block;}
   .cart-foot .btn{margin-bottom:10px;}
 
   /* toast */
@@ -398,11 +455,48 @@
   }
   .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
 
-  /* reveal on scroll */
-  .reveal{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease;}
-  .reveal.in{opacity:1; transform:translateY(0);}
+  /* ================= PRODUCT DETAIL MODAL ================= */
+  .pd-overlay{position:fixed; inset:0; background:rgba(5,7,14,0.65); backdrop-filter:blur(4px); opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:410; display:flex; align-items:center; justify-content:center; padding:24px;}
+  .pd-overlay.show{opacity:1; pointer-events:auto;}
+  .pd-modal{
+    background:#fff; border-radius:22px; width:100%; max-width:960px; max-height:88vh; overflow-y:auto; position:relative;
+    transform:translateY(24px) scale(.98); opacity:0; transition:transform .35s cubic-bezier(.2,.8,.2,1), opacity .3s ease; box-shadow:var(--shadow-lg);
+  }
+  .pd-overlay.show .pd-modal{transform:translateY(0) scale(1); opacity:1;}
+  .pd-close{position:sticky; top:16px; left:calc(100% - 60px); width:40px; height:40px; border-radius:50%; background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-md); display:flex; align-items:center; justify-content:center; z-index:5;}
+  .pd-body{padding:0 44px 44px; margin-top:-40px; display:grid; grid-template-columns:1fr 1fr; gap:44px;}
+  .pd-media{height:100%; min-height:340px; border-radius:18px; display:flex; align-items:center; justify-content:center; background:var(--paper-2); border:1px solid var(--line); overflow:hidden;}
+  .pd-media img{width:100%; height:100%; object-fit:contain; padding:26px;}
+  .pd-info .p-cat{margin-bottom:10px;}
+  .pd-info h2{font-size:28px; margin-bottom:10px;}
+  .pd-brand-tag{display:inline-block; font-size:11.5px; font-weight:700; color:var(--blue); background:var(--blue-dim); padding:5px 12px; border-radius:100px; margin-bottom:14px; font-family:'JetBrains Mono',monospace;}
+  .pd-price{display:flex; align-items:baseline; gap:10px; margin:14px 0 18px;}
+  .pd-price .now{font-family:'Fraunces',serif; font-size:30px; font-weight:700;}
+  .pd-price .old{font-size:15px; color:var(--slate-2); text-decoration:line-through;}
+  .pd-price .off{font-size:12.5px; color:#1B8A45; font-weight:700;}
+  .pd-desc{font-size:14.5px; color:var(--slate); line-height:1.7; margin-bottom:22px;}
+  .pd-specs{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px;}
+  .pd-spec{background:var(--paper-2); border-radius:12px; padding:12px 14px;}
+  .pd-spec .k{font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--slate-2); font-family:'JetBrains Mono',monospace; margin-bottom:4px;}
+  .pd-spec .v{font-size:13.5px; font-weight:700;}
+  .pd-actions{display:flex; gap:10px; margin-bottom:8px;}
+  .pd-actions .btn{flex:1;}
+  .pd-reviews{grid-column:1 / -1; border-top:1px solid var(--line); padding-top:30px; margin-top:10px;}
+  .pd-reviews h3{font-size:20px; margin-bottom:18px;}
+  .pd-review-list{display:flex; flex-direction:column; gap:16px; margin-bottom:30px;}
+  .pd-review{background:var(--paper-2); border-radius:14px; padding:18px 20px;}
+  .pd-review .stars{color:var(--gold); font-size:13px; letter-spacing:1.5px; margin-bottom:6px;}
+  .pd-review p{font-size:13.5px; color:var(--text); line-height:1.6; margin-bottom:8px;}
+  .pd-review .who{font-size:12px; color:var(--slate-2); font-weight:700;}
+  .pd-review-form{background:var(--paper-2); border-radius:16px; padding:22px;}
+  .pd-review-form h4{font-size:15px; margin-bottom:14px;}
+  .star-picker{display:flex; gap:6px; margin-bottom:14px;}
+  .star-picker button{font-size:26px; color:var(--line); transition:.15s;}
+  .star-picker button.active, .star-picker button:hover{color:var(--gold);}
+  .pd-review-form input, .pd-review-form textarea{width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:10px; font:inherit; font-size:13.5px; margin-bottom:10px; background:#fff;}
+  .pd-review-form textarea{min-height:70px; resize:vertical;}
 
-  /* WhatsApp float button */
+  /* ================= WhatsApp float ================= */
   .wa-float{
     position:fixed; bottom:26px; right:26px; z-index:150; width:60px; height:60px; border-radius:50%;
     background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 14px 30px -8px rgba(37,211,102,0.6);
@@ -411,21 +505,28 @@
   @keyframes waPulse{0%,100%{box-shadow:0 14px 30px -8px rgba(37,211,102,0.6);}50%{box-shadow:0 14px 30px -4px rgba(37,211,102,0.9),0 0 0 8px rgba(37,211,102,0.12);}}
   .wa-float svg{width:30px;height:30px;}
 
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
   /* ================= RESPONSIVE ================= */
   @media (max-width:1080px){
     .hero-grid{grid-template-columns:1fr; text-align:center; padding-top:100px;}
-    .hero p.lead{margin-left:auto; margin-right:auto;}
+    .hero p.lead, .hero-search{margin-left:auto; margin-right:auto;}
     .hero-ctas, .hero-stats{justify-content:center;}
     .trust-inner{grid-template-columns:repeat(2,1fr);}
     .trust-item:nth-child(2){border-right:none;}
     .flash-grid{grid-template-columns:1fr;}
     .collections{grid-template-columns:1fr;}
+    .brand-grid{grid-template-columns:repeat(2,1fr);}
     .product-grid{grid-template-columns:repeat(2,1fr);}
     .why-grid{grid-template-columns:1fr; gap:40px;}
     .reviews-track{grid-template-columns:1fr;}
     .steps{grid-template-columns:1fr;}
     .contact-grid{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:1fr 1fr;}
+    .pd-body{grid-template-columns:1fr;}
+    .search-wrap.open .search-input{width:160px;}
     .nav-burger{display:flex;}
     .nav-links{
       display:flex; flex-direction:column; gap:0; position:fixed; top:0; right:0; height:100vh; width:78vw; max-width:320px;
@@ -451,10 +552,16 @@
     .nav-right{gap:8px;}
     .nav-right > .btn-primary{display:none;}
     .icon-btn{width:38px; height:38px;}
-    .hero{min-height:auto;}
+    .search-wrap.open .search-input{width:130px; font-size:12.5px;}
+    .search-results-panel{width:280px;}
+    /* mobile hero video: use svh/dvh so mobile browser chrome doesn't clip the video,
+       and force object-fit cover with a centered focal point so it always fills the frame */
+    .hero{min-height:100svh; min-height:100dvh;}
+    .hero-bg-video{position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; object-position:50% 42%;}
     .hero-grid{padding:76px 18px 44px;}
     .hero h1{font-size:clamp(38px,11vw,56px); line-height:1.02;}
     .hero p.lead{font-size:16px;}
+    .hero-search{padding:5px 6px 5px 16px;}
     .hero-ctas{flex-direction:column; align-items:stretch; margin-bottom:34px;}
     .hero-ctas .btn{width:100%;}
     .hero-stats{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px 14px;}
@@ -470,13 +577,11 @@
     .flash-grid{gap:32px;}
     .flash-card{padding:26px 20px;}
     .flash-card .watch-icon-wrap{width:150px; height:150px;}
-    .countdown{gap:6px;}
-    .countdown .unit{min-width:58px; padding:12px 8px;}
     .collections{gap:16px;}
     .coll-card{height:300px;}
-    .coll-card-content{padding:22px;}
-    .filter-bar{gap:8px; margin-bottom:26px;}
-    .filter-btn{padding:9px 12px; font-size:12px;}
+    .brand-grid{grid-template-columns:repeat(2,1fr); gap:14px;}
+    .filter-bar{gap:8px; margin-bottom:26px; overflow-x:auto; flex-wrap:nowrap; padding-bottom:4px;}
+    .filter-bar .chip{flex-shrink:0;}
     .product-grid{gap:16px;}
     .p-card{padding:16px 16px 18px;}
     .why-grid{gap:28px;}
@@ -496,6 +601,9 @@
     .cart-head{padding:20px 18px 16px;}
     .cart-items{padding:16px 18px;}
     .cart-foot{padding:18px 18px 22px;}
+    .pd-body{padding:0 22px 30px; gap:26px;}
+    .pd-close{left:calc(100% - 56px); top:12px;}
+    .pd-specs{grid-template-columns:1fr;}
     .toast{width:calc(100% - 36px); justify-content:center; text-align:center;}
     .wa-float{width:54px; height:54px; right:18px; bottom:18px;}
   }
@@ -505,6 +613,7 @@
     .logo{font-size:19px;}
     .nav-right{gap:6px;}
     .nav-right > a.icon-btn:first-child{display:none;}
+    .search-wrap.open .search-input{width:110px;}
     .hero-grid{padding:64px 14px 38px;}
     .hero-badge{font-size:10px; letter-spacing:.02em; padding:6px 10px 6px 6px;}
     .hero h1{font-size:clamp(34px,10.5vw,46px);}
@@ -520,6 +629,7 @@
     .coll-card{height:280px; padding:22px;}
     .coll-watch-deco{right:-45px; bottom:-45px; transform:rotate(-12deg) scale(.82);}
     .coll-card:hover .coll-watch-deco{transform:rotate(-4deg) scale(.88);}
+    .brand-grid{grid-template-columns:1fr 1fr;}
     .p-actions{flex-direction:column;}
     .p-actions .btn{width:100%;}
     .why-visual{height:260px;}
@@ -533,6 +643,7 @@
     .cart-line{gap:10px;}
     .cart-line-actions{align-items:flex-start; flex-direction:column; gap:8px;}
     .checkout-form input,.checkout-form textarea{font-size:16px;}
+    .pd-actions{flex-direction:column;}
   }
 
   /* Final mobile layout safeguards */
@@ -560,9 +671,9 @@
     .flash-timer{width:100%; justify-content:center; gap:8px;}
     .flash-timer .t{flex:1; min-width:0; padding:12px 8px;}
     .flash-timer .t b{font-size:24px;}
-    .collections,.product-grid,.why-grid,.reviews-track,.steps,.contact-grid,.footer-grid{width:100%;}
+    .collections,.product-grid,.why-grid,.reviews-track,.steps,.contact-grid,.footer-grid,.brand-grid{width:100%;}
     .coll-card{min-width:0;}
-    .p-card,.review-card,.step-card,.contact-card{min-width:0;}
+    .p-card,.review-card,.step-card,.contact-card,.brand-card{min-width:0;}
     .p-name,.p-cat,.p-rating span,.spec-row .v,.contact-card span{overflow-wrap:anywhere;}
     .p-price{flex-wrap:wrap; gap:5px 8px;}
     .p-actions{flex-direction:column; width:100%;}
@@ -590,10 +701,13 @@
     .coll-card{height:260px; padding:18px;}
     .coll-card h3{font-size:23px;}
     .coll-card p{font-size:12.5px; max-width:190px;}
-    .filter-bar{overflow-x:auto; flex-wrap:nowrap; padding-bottom:4px;}
-    .filter-bar .chip{flex-shrink:0;}
     .faq-q{gap:12px;}
     .faq-q h4{font-size:15px;}
+  }
+
+  @media (orientation:landscape) and (max-height:480px){
+    .hero{min-height:auto;}
+    .hero-grid{padding-top:100px; padding-bottom:36px;}
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -624,13 +738,22 @@
     <nav class="nav-links" id="navLinks">
       <button class="nav-close" id="navClose" type="button" aria-label="Close menu">&times;</button>
       <a href="#collections">Collections</a>
+      <a href="#brands">Brands</a>
       <a href="#bestsellers">Best Sellers</a>
+      <a href="#sales">All Deals</a>
       <a href="#flashsale">Deal of the Day</a>
       <a href="#reviews">Reviews</a>
       <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="nav-right">
+      <div class="search-wrap" id="searchWrap">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search watches, brands...">
+        <div class="search-results-panel" id="searchResults"></div>
+      </div>
+      <button class="icon-btn" id="searchToggle" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </button>
       <a class="icon-btn" href="https://wa.me/917505640600?text=Hi%20HAMZA%2C%20I%27d%20like%20to%20know%20more%20about%20your%20watches." target="_blank" rel="noopener" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">
         <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
       </a>
@@ -648,7 +771,7 @@
 
 <!-- HERO -->
 <section class="hero" id="hero">
-  <video class="hero-bg-video" id="heroVideo" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+  <video class="hero-bg-video" id="heroVideo" autoplay muted loop playsinline webkit-playsinline="true" preload="auto" aria-hidden="true">
     <source src="video.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
@@ -658,6 +781,12 @@
       <div class="hero-badge"><span class="swatch"></span> Rated 4.8/5 by 12,400+ customers</div>
       <h1>Precision on your<br> wrist, <em>worn boldly.</em></h1>
       <p class="lead">HAMZA builds watches for people who notice details — sculpted cases, sapphire-clear crystals, and mechanisms tested to survive the day you actually live. Order in seconds, straight to your door.</p>
+      <form class="hero-search" id="heroSearchForm" role="search">
+        <input type="text" id="heroSearchInput" placeholder="Search 'diver', 'chrono', a brand...">
+        <button type="submit" aria-label="Search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </button>
+      </form>
       <div class="hero-ctas">
         <a class="btn btn-primary" href="#bestsellers">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
@@ -718,10 +847,10 @@
     </div>
     <div class="flash-card reveal">
       <span class="flash-tag">70 CLAIMED TODAY</span>
-      <div class="watch-icon-wrap" id="flashWatchIcon"></div>
+      <div class="watch-icon-wrap" id="flashWatchIcon" onclick="openProduct('p6')"></div>
       <div>
         <div class="p-cat">Limited Drop</div>
-        <h3 style="font-size:22px; margin-bottom:6px;">Hamza Velocity GT</h3>
+        <h3 style="font-size:22px; margin-bottom:6px; cursor:pointer;" onclick="openProduct('p6')">Hamza Velocity GT</h3>
         <div class="p-rating"><span class="stars">★★★★★</span><span>4.9 (860)</span></div>
         <div class="flash-price">
           <span class="now">₹5,999</span>
@@ -749,21 +878,38 @@
       <p>From dive-rated tool watches to dress pieces built for boardrooms — every collection carries the same movement standard.</p>
     </div>
     <div class="collections">
-      <a class="coll-card c1 reveal" href="#bestsellers">
+      <a class="coll-card c1 reveal" href="#bestsellers" data-category="Diver">
         <div class="coll-watch-deco" id="collDeco1"></div>
         <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
         <div><span class="coll-count">08 PIECES</span><h3>The Diver</h3><p>200m water resistance, unidirectional bezel, built for open water.</p></div>
       </a>
-      <a class="coll-card c2 reveal" href="#bestsellers">
+      <a class="coll-card c2 reveal" href="#bestsellers" data-category="Chronograph">
         <div class="coll-watch-deco" id="collDeco2"></div>
         <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
         <div><span class="coll-count">06 PIECES</span><h3>The Chronograph</h3><p>Tri-compax dials, tachymeter scales, precision to the fifth of a second.</p></div>
       </a>
-      <a class="coll-card c3 reveal" href="#bestsellers">
+      <a class="coll-card c3 reveal" href="#bestsellers" data-category="Classic">
         <div class="coll-watch-deco" id="collDeco3"></div>
         <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
         <div><span class="coll-count">05 PIECES</span><h3>The Classic</h3><p>Slim cases, domed crystals, and dials that don't shout to be noticed.</p></div>
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section class="brands" id="brands">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div>
+        <span class="eyebrow">Shop by brand line</span>
+        <h2>Four in-house lines, one warranty.</h2>
+      </div>
+      <p>Every HAMZA sub-line is built for a different wrist and a different day. Tap a line to see only those watches.</p>
+    </div>
+    <div class="brand-grid" id="brandGrid"></div>
+    <div class="brand-clear" id="brandClearWrap" style="display:none;">
+      <button class="chip" id="brandClearBtn">✕ Clear brand filter</button>
     </div>
   </div>
 </section>
@@ -785,7 +931,22 @@
       <button class="chip" data-filter="Classic">Classic</button>
       <button class="chip" data-filter="Field">Field</button>
     </div>
+    <div class="active-filter-note" id="activeFilterNote" style="display:none;"></div>
     <div class="product-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<!-- ALL DEALS / SALES SECTION -->
+<section class="sales-sec" id="sales">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div>
+        <span class="eyebrow" style="color:#C4362C;">Live right now</span>
+        <h2>Every watch currently on sale.</h2>
+      </div>
+      <p>All discounted pieces across every collection and brand line, sorted by the biggest saving first.</p>
+    </div>
+    <div class="product-grid" id="salesGrid"></div>
   </div>
 </section>
 
@@ -827,9 +988,9 @@
       <p>Pick a piece, tell us on WhatsApp or email, and we handle the rest — including cash on delivery.</p>
     </div>
     <div class="steps">
-      <div class="step-card reveal"><div class="step-num">01</div><h3>Pick your watch</h3><p>Browse the collection and add your pick to the cart, or note down the name.</p></div>
-      <div class="step-card reveal"><div class="step-num">02</div><h3>Message us directly</h3><p>Tap "Order via WhatsApp" or email us — your order details are pre-filled automatically.</p></div>
-      <div class="step-card reveal"><div class="step-num">03</div><h3>Track &amp; receive</h3><p>We confirm availability, ship within 48 hours, and you pay on delivery if you prefer.</p></div>
+      <div class="step-card reveal"><div class="step-num">01</div><h3>Pick your watch</h3><p>Browse the collection, search, or filter by brand and add your pick to the cart.</p></div>
+      <div class="step-card reveal"><div class="step-num">02</div><h3>Share your location</h3><p>Auto-detect your delivery address or drop a pin on the map — no typing needed.</p></div>
+      <div class="step-card reveal"><div class="step-num">03</div><h3>Message &amp; receive</h3><p>Tap "Order via WhatsApp" or email us — we confirm, ship within 48 hours, and you can pay on delivery.</p></div>
     </div>
     <div class="order-cta reveal">
       <div class="order-cta-text">
@@ -904,7 +1065,8 @@
           <li><a href="#collections">Diver</a></li>
           <li><a href="#collections">Chronograph</a></li>
           <li><a href="#collections">Classic</a></li>
-          <li><a href="#flashsale">Deal of the Day</a></li>
+          <li><a href="#brands">Brands</a></li>
+          <li><a href="#sales">All Deals</a></li>
         </ul>
       </div>
       <div>
@@ -949,22 +1111,96 @@
   <div class="cart-foot" id="cartFoot"></div>
 </div>
 
+<!-- PRODUCT DETAIL MODAL -->
+<div class="pd-overlay" id="pdOverlay">
+  <div class="pd-modal" id="pdModal">
+    <button class="pd-close" id="pdClose" aria-label="Close details">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="pd-body" id="pdBody"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
 /* ============ PRODUCT DATA ============ */
 const PRODUCTS = [
-  {id:'p1', name:'Hamza Abyss Diver', cat:'Diver', price:4299, old:7999, rating:4.8, reviews:1240, badge:'best', badgeLabel:'BESTSELLER', dial:'#0B1220', bezel:'#0F3D66', accent:'#5B9DFF', hands:'#E7ECF5'},
-  {id:'p2', name:'Hamza Meridian Chrono', cat:'Chronograph', price:5499, old:9499, rating:4.7, reviews:860, badge:'new', badgeLabel:'NEW', dial:'#101522', bezel:'#22304A', accent:'#C9A961', hands:'#F1F3F8'},
-  {id:'p3', name:'Hamza Regent Classic', cat:'Classic', price:3799, old:6299, rating:4.9, reviews:1520, badge:'best', badgeLabel:'BESTSELLER', dial:'#F7F3E9', bezel:'#C9A961', accent:'#8A6512', hands:'#2A2210', light:true},
-  {id:'p4', name:'Hamza Onyx Field', cat:'Field', price:3299, old:5499, rating:4.6, reviews:640, badge:'sale', badgeLabel:'SALE', dial:'#15181C', bezel:'#2B2F35', accent:'#8FA0B5', hands:'#E7ECF5'},
-  {id:'p5', name:'Hamza Aviator Pro', cat:'Field', price:4899, old:8299, rating:4.7, reviews:410, badge:'new', badgeLabel:'NEW', dial:'#1B2016', bezel:'#4A4530', accent:'#C9A961', hands:'#F1F3F8'},
-  {id:'p6', name:'Hamza Velocity GT', cat:'Chronograph', price:5999, old:10499, rating:4.9, reviews:860, badge:'limited', badgeLabel:'LIMITED', dial:'#141414', bezel:'#2A2A2A', accent:'#D64545', hands:'#F1F3F8'},
-  {id:'p7', name:'Hamza Luna Rose', cat:'Classic', price:3999, old:6799, rating:4.8, reviews:980, badge:'best', badgeLabel:'BESTSELLER', dial:'#221419', bezel:'#B98C8C', accent:'#E4C7C7', hands:'#F6EDEE'},
-  {id:'p8', name:'Hamza Titan X Skeleton', cat:'Diver', price:6499, old:11999, rating:4.9, reviews:310, badge:'limited', badgeLabel:'PREMIUM', dial:'#0D0F14', bezel:'#3A3F4B', accent:'#5B9DFF', hands:'#E7ECF5'},
+  {id:'p1', name:'Hamza Abyss Diver', cat:'Diver', brand:'Hamza Marine', price:4299, old:7999, rating:4.8, reviews:1240, badge:'best', badgeLabel:'BESTSELLER',
+    desc:'A 200m dive-rated tool watch built for open water — unidirectional bezel, luminous markers, and a case that shrugs off knocks.',
+    specs:{Movement:'Automatic', Case:'42mm · 316L Steel', 'Water Resist.':'200m', Strap:'Steel bracelet', Crystal:'Sapphire-coated'}},
+  {id:'p2', name:'Hamza Meridian Chrono', cat:'Chronograph', brand:'Hamza Chrono', price:5499, old:9499, rating:4.7, reviews:860, badge:'new', badgeLabel:'NEW',
+    desc:'Tri-compax chronograph dial with a tachymeter scale — precision timing for people who actually use it.',
+    specs:{Movement:'Quartz chronograph', Case:'40mm · Steel', 'Water Resist.':'50m', Strap:'Leather', Crystal:'Sapphire-coated'}},
+  {id:'p3', name:'Hamza Regent Classic', cat:'Classic', brand:'Hamza Heritage', price:3799, old:6299, rating:4.9, reviews:1520, badge:'best', badgeLabel:'BESTSELLER',
+    desc:'Slim case, domed crystal, gold-toned bezel — a dress watch that doesn\'t shout to be noticed.',
+    specs:{Movement:'Quartz', Case:'38mm · Steel', 'Water Resist.':'30m', Strap:'Leather', Crystal:'Mineral'}},
+  {id:'p4', name:'Hamza Onyx Field', cat:'Field', brand:'Hamza Field', price:3299, old:5499, rating:4.6, reviews:640, badge:'sale', badgeLabel:'SALE',
+    desc:'Matte case, high-contrast dial — built for trails, travel and everyday knocks.',
+    specs:{Movement:'Quartz', Case:'40mm · Steel', 'Water Resist.':'100m', Strap:'Nylon NATO', Crystal:'Mineral'}},
+  {id:'p5', name:'Hamza Aviator Pro', cat:'Field', brand:'Hamza Field', price:4899, old:8299, rating:4.7, reviews:410, badge:'new', badgeLabel:'NEW',
+    desc:'Oversized crown and a high-legibility dial inspired by cockpit instruments.',
+    specs:{Movement:'Automatic', Case:'44mm · Steel', 'Water Resist.':'50m', Strap:'Leather', Crystal:'Sapphire-coated'}},
+  {id:'p6', name:'Hamza Velocity GT', cat:'Chronograph', brand:'Hamza Chrono', price:5999, old:10499, rating:4.9, reviews:860, badge:'limited', badgeLabel:'LIMITED',
+    desc:'Racing-red chronograph accents on a brushed steel case — today\'s flash deal.',
+    specs:{Movement:'Quartz chronograph', Case:'42mm · Steel', 'Water Resist.':'100m', Strap:'Steel bracelet', Crystal:'Sapphire-coated'}},
+  {id:'p7', name:'Hamza Luna Rose', cat:'Classic', brand:'Hamza Heritage', price:3999, old:6799, rating:4.8, reviews:980, badge:'best', badgeLabel:'BESTSELLER',
+    desc:'Rose-tone case with a soft blush dial — classic proportions, modern colour.',
+    specs:{Movement:'Quartz', Case:'36mm · Steel', 'Water Resist.':'30m', Strap:'Steel bracelet', Crystal:'Mineral'}},
+  {id:'p8', name:'Hamza Titan X Skeleton', cat:'Diver', brand:'Hamza Marine', price:6499, old:11999, rating:4.9, reviews:310, badge:'limited', badgeLabel:'PREMIUM',
+    desc:'Open-worked skeleton dial exposing the movement — our most technical piece.',
+    specs:{Movement:'Automatic skeleton', Case:'44mm · Steel', 'Water Resist.':'100m', Strap:'Steel bracelet', Crystal:'Sapphire-coated'}},
 ];
 
-/* ============ WHATSAPP / EMAIL LINKS (declared early — used during initial render) ============ */
+const PRODUCT_IMAGES = {
+  p1:'https://www.king-wear.com/photo/pl198789280-kw252a_premium_classic_design_amoled_smart_watch.jpg',
+  p2:'https://img4.dhresource.com/webp/m/0x0/f3/albu/jc/z/21/d73bf664-1ea1-4718-b263-5f82562e338a.jpg',
+  p3:'https://content.thewosgroup.com/productimage/17532560/17532560_2.jpg?impolicy=lister',
+  p4:'https://images.stockcake.com/public/8/4/5/845e52db-963d-4b50-97a8-85aa37ad4b2b/luxury-chronograph-timepiece-stockcake.jpg',
+  p5:'https://packersshoppro.com/wp-content/uploads/2020/08/Aviator-Watches.jpg',
+  p6:'https://consumer.huawei.com/dam/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-gt6/list46mm-green.png',
+  p7:'https://sedgars.com/cdn/shop/files/s-l960_886ad8a7-2ff3-41f1-9e74-fab863bd55b7.webp?v=1772104966',
+  p8:'https://www.datocms-assets.com/99008/1697469125-epic_x_black-red.webp'
+};
+
+const BRAND_IMAGES = {
+  'Hamza Marine':'https://raritywatches.com/wp-content/uploads/2023/01/Epos-3504-Diver-blue-3.jpg',
+  'Hamza Chrono':'https://www.gearpatrol.com/wp-content/uploads/sites/2/2025/03/timex-waterbury-heritage-chronograph-silver-front-gear-patrol-jpg.webp',
+  'Hamza Heritage':'https://sedgars.com/cdn/shop/files/s-l960_886ad8a7-2ff3-41f1-9e74-fab863bd55b7.webp?v=1772104966',
+  'Hamza Field':'https://packersshoppro.com/wp-content/uploads/2020/08/Aviator-Watches.jpg'
+};
+
+const SEED_REVIEWS = {
+  p1:[{name:'Rohit Sharma', rating:5, text:'The Abyss Diver looks and feels far more expensive than what I paid. Ordering on WhatsApp was quicker than any app checkout I have used.'}],
+  p2:[{name:'Vikram Patel', rating:4, text:'Clean chronograph, the tachymeter scale is genuinely legible. Strap could be a touch softer out of the box.'}],
+  p3:[{name:'Ayesha Khan', rating:5, text:'Bought the Regent Classic for my husband — the box, the weight, the finish, all felt premium. Delivery was 3 days.'}],
+  p4:[{name:'Meera Nair', rating:4, text:'Ordered the Onyx Field for hiking trips. Sapphire coating has survived two years of scrapes without a scratch.'}],
+  p5:[{name:'Farhan Ali', rating:5, text:'The oversized crown makes it so easy to adjust with gloves on. Exactly what I wanted for travel.'}],
+  p6:[{name:'Vikram Patel', rating:4, text:'Was skeptical about buying a watch over WhatsApp, but the team answered every question before I paid. The Velocity GT is stunning in person.'}],
+  p7:[{name:'Sneha Reddy', rating:5, text:'Luna Rose is my third HAMZA watch. Consistent quality, and the 2-year warranty actually got honored when I needed a strap replacement.'}],
+  p8:[{name:'Farhan Ali', rating:5, text:'The Titan X Skeleton dial is a genuine conversation starter. Packaging alone felt like unboxing something twice the price.'}]
+};
+
+/* ============ PERSISTENT STORAGE (localStorage, falls back to in-memory if blocked) ============ */
+const memoryStore = {};
+function lsGet(key, fallback){
+  try{
+    const raw = localStorage.getItem(key);
+    return raw === null ? fallback : JSON.parse(raw);
+  }catch(e){
+    return (key in memoryStore) ? memoryStore[key] : fallback;
+  }
+}
+function lsSet(key, value){
+  try{
+    localStorage.setItem(key, JSON.stringify(value));
+  }catch(e){
+    memoryStore[key] = value;
+  }
+}
+
+/* ============ WHATSAPP / EMAIL LINKS ============ */
 const WA_NUMBER = '917505640600';
 const EMAIL = 'ng318833@gmail.com';
 
@@ -973,87 +1209,166 @@ function waOrderLink(p){
   return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
 }
 
-/* ============ RENDER PRODUCT GRID ============ */
-const grid = document.getElementById('productGrid');
-function renderGrid(filter='all'){
-  grid.innerHTML = '';
-  PRODUCTS.filter(p => filter==='all' || p.cat===filter).forEach(p=>{
-    const off = Math.round((1 - p.price/p.old)*100);
-    const stars = '★★★★★'.slice(0,Math.round(p.rating)) + '☆☆☆☆☆'.slice(0,5-Math.round(p.rating));
-    const card = document.createElement('div');
-    card.className = 'p-card reveal in';
-    card.innerHTML = `
+function starString(rating){
+  const r = Math.round(rating);
+  return '★★★★★'.slice(0,r) + '☆☆☆☆☆'.slice(0,5-r);
+}
+
+/* ============ FILTER STATE ============ */
+let currentCategory = 'all';
+let currentBrand = null;
+
+function computeAvgRating(id){
+  const base = PRODUCTS.find(p=>p.id===id);
+  const extra = getReviews(id).filter(r=>r.userAdded);
+  if(extra.length === 0) return base.rating;
+  const baseWeight = base.reviews;
+  const totalCount = baseWeight + extra.length;
+  const sum = base.rating*baseWeight + extra.reduce((s,r)=>s+r.rating,0);
+  return sum/totalCount;
+}
+function totalReviewCount(id){
+  const base = PRODUCTS.find(p=>p.id===id);
+  return base.reviews + getReviews(id).filter(r=>r.userAdded).length;
+}
+
+/* ============ RENDER PRODUCT CARD (shared by grid + sales) ============ */
+function productCardHTML(p){
+  const off = Math.round((1 - p.price/p.old)*100);
+  const avg = computeAvgRating(p.id);
+  const cnt = totalReviewCount(p.id);
+  const wished = getPersistentWishlist().includes(p.id);
+  return `
+    <div class="p-card reveal in" data-id="${p.id}">
       <span class="p-badge ${p.badge}">${p.badgeLabel}</span>
-      <button class="p-wish ${getPersistentCookie('hamza_wishlist', []).includes(p.id) ? 'active' : ''}" data-product-id="${p.id}" aria-label="Save to wishlist" onclick="toggleWish(this)">
+      <button class="p-wish ${wished ? 'active' : ''}" data-product-id="${p.id}" aria-label="Save to wishlist" onclick="toggleWish(this)">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
       </button>
-      <div class="p-media" style="background:${p.light? 'linear-gradient(160deg,#FBF8F0,#F1E9D6)' : 'linear-gradient(160deg,#151B2E,#0B0F1C)'}"><img src="${({
-        p1:'https://www.king-wear.com/photo/pl198789280-kw252a_premium_classic_design_amoled_smart_watch.jpg',
-        p2:'https://img4.dhresource.com/webp/m/0x0/f3/albu/jc/z/21/d73bf664-1ea1-4718-b263-5f82562e338a.jpg',
-        p3:'https://content.thewosgroup.com/productimage/17532560/17532560_2.jpg?impolicy=lister',
-        p4:'https://images.stockcake.com/public/8/4/5/845e52db-963d-4b50-97a8-85aa37ad4b2b/luxury-chronograph-timepiece-stockcake.jpg',
-        p5:'https://packersshoppro.com/wp-content/uploads/2020/08/Aviator-Watches.jpg',
-        p6:'https://consumer.huawei.com/dam/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-gt6/list46mm-green.png',
-        p7:'https://sedgars.com/cdn/shop/files/s-l960_886ad8a7-2ff3-41f1-9e74-fab863bd55b7.webp?v=1772104966',
-        p8:'https://www.datocms-assets.com/99008/1697469125-epic_x_black-red.webp'
-      })[p.id]}" width="150" height="150" alt="${p.name} watch"></div>
-      <div class="p-cat">${p.cat}</div>
-      <div class="p-name">${p.name}</div>
-      <div class="p-rating"><span class="stars">${stars}</span><span>${p.rating} (${p.reviews})</span></div>
+      <div class="p-media" onclick="openProduct('${p.id}')" style="background:linear-gradient(160deg,#151B2E,#0B0F1C)"><img src="${PRODUCT_IMAGES[p.id]}" width="150" height="150" alt="${p.name} watch" loading="lazy"></div>
+      <div class="p-cat"><span>${p.cat}</span><span>${p.brand}</span></div>
+      <div class="p-name" onclick="openProduct('${p.id}')">${p.name}</div>
+      <div class="p-rating"><span class="stars">${starString(avg)}</span><span>${avg.toFixed(1)} (${cnt})</span></div>
       <div class="p-price"><span class="now">₹${p.price.toLocaleString('en-IN')}</span><span class="old">₹${p.old.toLocaleString('en-IN')}</span><span class="off">-${off}%</span></div>
       <div class="p-actions">
         <button class="btn btn-outline" onclick="addToCart('${p.id}')">Add to Cart</button>
         <a class="btn btn-primary" href="${waOrderLink(p)}" target="_blank" rel="noopener">Buy Now</a>
       </div>
-    `;
-    grid.appendChild(card);
-  });
+    </div>`;
 }
-renderGrid();
 
-document.querySelectorAll('.chip').forEach(chip=>{
+/* ============ RENDER PRODUCT GRID (best sellers, with category + brand filter) ============ */
+const grid = document.getElementById('productGrid');
+function renderGrid(){
+  let list = PRODUCTS.filter(p => currentCategory==='all' || p.cat===currentCategory);
+  if(currentBrand) list = list.filter(p => p.brand === currentBrand);
+  grid.innerHTML = list.length
+    ? list.map(productCardHTML).join('')
+    : `<div class="empty-state" style="grid-column:1/-1;">No watches match this filter yet. <button class="chip" onclick="clearAllFilters()" style="margin-top:12px;">Clear filters</button></div>`;
+
+  const note = document.getElementById('activeFilterNote');
+  if(currentBrand){
+    note.style.display = 'flex';
+    note.innerHTML = `Showing <b>${currentBrand}</b> only. <button onclick="clearBrandFilter()">Clear brand filter</button>`;
+  } else {
+    note.style.display = 'none';
+  }
+}
+
+document.querySelectorAll('.chip[data-filter]').forEach(chip=>{
   chip.addEventListener('click', ()=>{
-    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    document.querySelectorAll('.chip[data-filter]').forEach(c=>c.classList.remove('active'));
     chip.classList.add('active');
-    renderGrid(chip.dataset.filter);
+    currentCategory = chip.dataset.filter;
+    renderGrid();
   });
 });
+document.querySelectorAll('.coll-card[data-category]').forEach(card=>{
+  card.addEventListener('click', (e)=>{
+    const cat = card.dataset.category;
+    document.querySelectorAll('.chip[data-filter]').forEach(c=>c.classList.toggle('active', c.dataset.filter===cat));
+    currentCategory = cat;
+    renderGrid();
+  });
+});
+function clearBrandFilter(){
+  currentBrand = null;
+  document.querySelectorAll('.brand-card').forEach(c=>c.classList.remove('active'));
+  document.getElementById('brandClearWrap').style.display = 'none';
+  renderGrid();
+}
+function clearAllFilters(){
+  currentCategory = 'all';
+  currentBrand = null;
+  document.querySelectorAll('.chip[data-filter]').forEach(c=>c.classList.toggle('active', c.dataset.filter==='all'));
+  document.querySelectorAll('.brand-card').forEach(c=>c.classList.remove('active'));
+  document.getElementById('brandClearWrap').style.display = 'none';
+  renderGrid();
+}
+
+/* ============ BRANDS SECTION ============ */
+const brandGrid = document.getElementById('brandGrid');
+function uniqueBrands(){ return [...new Set(PRODUCTS.map(p=>p.brand))]; }
+function renderBrands(){
+  brandGrid.innerHTML = uniqueBrands().map(b=>{
+    const count = PRODUCTS.filter(p=>p.brand===b).length;
+    return `<div class="brand-card reveal in ${currentBrand===b?'active':''}" data-brand="${b}">
+      <div class="brand-media"><img src="${BRAND_IMAGES[b]}" alt="${b} line" loading="lazy"></div>
+      <h4>${b}</h4>
+      <span>${count} WATCH${count>1?'ES':''}</span>
+    </div>`;
+  }).join('');
+  brandGrid.querySelectorAll('.brand-card').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      const b = card.dataset.brand;
+      currentBrand = (currentBrand === b) ? null : b;
+      renderBrands();
+      renderGrid();
+      document.getElementById('brandClearWrap').style.display = currentBrand ? 'flex' : 'none';
+      document.getElementById('bestsellers').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+}
+document.getElementById('brandClearBtn').addEventListener('click', clearBrandFilter);
+renderBrands();
+renderGrid();
+
+/* ============ SALES SECTION (all discounted watches, biggest saving first) ============ */
+const salesGrid = document.getElementById('salesGrid');
+function renderSales(){
+  const list = [...PRODUCTS].sort((a,b)=> (1-b.price/b.old) - (1-a.price/a.old));
+  salesGrid.innerHTML = list.map(productCardHTML).join('');
+}
+renderSales();
 
 /* Flash sale + why-section icons */
-document.getElementById('flashWatchIcon').innerHTML = '<img src="https://consumer.huawei.com/dam/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-gt6/list46mm-green.png" width="170" height="170" alt="Hamza Velocity GT flash sale watch">';
+document.getElementById('flashWatchIcon').innerHTML = `<img src="${PRODUCT_IMAGES.p6}" width="170" height="170" alt="Hamza Velocity GT flash sale watch">`;
 document.getElementById('whyWatchIcon').innerHTML = '<img src="https://watchexchange.sg/wp-content/uploads/2024/02/best-mens-watches.jpg" width="260" height="260" alt="HAMZA watch quality">';
-document.getElementById('flashWaLink').href = waOrderLink(PRODUCTS[5]);
+document.getElementById('flashWaLink').href = waOrderLink(PRODUCTS.find(p=>p.id==='p6'));
 
 /* Collection deco icons (larger, decorative) */
 document.getElementById('collDeco1').innerHTML = '<img src="https://raritywatches.com/wp-content/uploads/2023/01/Epos-3504-Diver-blue-3.jpg" width="220" height="220" alt="Diver collection watch">';
 document.getElementById('collDeco2').innerHTML = '<img src="https://www.gearpatrol.com/wp-content/uploads/sites/2/2025/03/timex-waterbury-heritage-chronograph-silver-front-gear-patrol-jpg.webp" width="220" height="220" alt="Chronograph collection watch">';
 document.getElementById('collDeco3').innerHTML = '<img src="https://static1.pocketnowimages.com/wordpress/wp-content/uploads/2023/07/pbi-samsung-galaxy-watch-6.png" width="220" height="220" alt="Classic collection watch">';
 
-function setPersistentCookie(name, value){
-  document.cookie = `${name}=${encodeURIComponent(JSON.stringify(value))}; max-age=315360000; path=/; SameSite=Lax`;
-}
-function getPersistentCookie(name, fallback){
-  const entry = document.cookie.split('; ').find(item => item.startsWith(name+'='));
-  if(!entry) return fallback;
-  try{ return JSON.parse(decodeURIComponent(entry.slice(name.length+1))); }
-  catch(e){ return fallback; }
-}
-
+/* ============ WISHLIST (persistent) ============ */
+function getPersistentWishlist(){ return lsGet('hamza_wishlist', []); }
 function toggleWish(btn){
   btn.classList.toggle('active');
   const productId = btn.dataset.productId;
   if(productId){
-    const wishlist = new Set(getPersistentCookie('hamza_wishlist', []));
+    const wishlist = new Set(getPersistentWishlist());
     if(btn.classList.contains('active')) wishlist.add(productId); else wishlist.delete(productId);
-    setPersistentCookie('hamza_wishlist', [...wishlist]);
+    lsSet('hamza_wishlist', [...wishlist]);
+    document.querySelectorAll(`.p-wish[data-product-id="${productId}"]`).forEach(b=>b.classList.toggle('active', wishlist.has(productId)));
   }
 }
 
-/* ============ CART ============ */
-let cart = getPersistentCookie('hamza_cart', {}); // id -> qty
-let checkoutDetails = getPersistentCookie('hamza_checkout', { name:'', address:'', phone:'' });
+/* ============ CART (persistent) ============ */
+let cart = lsGet('hamza_cart', {}); // id -> qty
+let checkoutDetails = lsGet('hamza_checkout', { name:'', address:'', phone:'', lat:null, lng:null });
 
-function saveCart(){ setPersistentCookie('hamza_cart', cart); }
+function saveCart(){ lsSet('hamza_cart', cart); }
+function saveCheckout(){ lsSet('hamza_checkout', checkoutDetails); }
 
 function addToCart(id){
   cart[id] = (cart[id]||0) + 1;
@@ -1096,7 +1411,7 @@ function updateCartUI(){
     const qty = cart[id];
     total += p.price*qty;
     return `<div class="cart-line">
-      <div class="thumb"><img src="https://dummyimage.com/300x300/${p.accent.slice(1)}/ffffff.png?text=${p.id}+CART" width="46" height="46" alt="${p.name} cart item"></div>
+      <div class="thumb"><img src="${PRODUCT_IMAGES[id]}" width="46" height="46" alt="${p.name} cart item"></div>
       <div class="cart-line-info">
         <b>${p.name}</b>
         <span class="price">₹${p.price.toLocaleString('en-IN')}</span>
@@ -1116,12 +1431,27 @@ function updateCartUI(){
     const p = PRODUCTS.find(x=>x.id===id);
     return `${cart[id]} x ${p.name} — ₹${(p.price*cart[id]).toLocaleString('en-IN')}`;
   }).join('\n');
-  const customerDetails = `\n\nCustomer details:\nName: ${checkoutDetails.name || 'Not provided'}\nAddress: ${checkoutDetails.address || 'Not provided'}\nPhone: ${checkoutDetails.phone || 'Not provided'}`;
-  const waMsg = `Hi HAMZA, I'd like to order:\n\n${lines}\n\nTotal: ₹${total.toLocaleString('en-IN')}${customerDetails}\n\nPlease confirm availability and delivery.`;
-  const mailBody = `Hi HAMZA,\n\nI'd like to order:\n\n${lines}\n\nTotal: ₹${total.toLocaleString('en-IN')}${customerDetails}`;
+
+  function buildMessages(){
+    const coordLine = (checkoutDetails.lat && checkoutDetails.lng) ? `\nMap pin: https://maps.google.com/?q=${checkoutDetails.lat},${checkoutDetails.lng}` : '';
+    const customerDetails = `\n\nCustomer details:\nName: ${checkoutDetails.name || 'Not provided'}\nAddress: ${checkoutDetails.address || 'Not provided'}\nPhone: ${checkoutDetails.phone || 'Not provided'}${coordLine}`;
+    const waMsg = `Hi HAMZA, I'd like to order:\n\n${lines}\n\nTotal: ₹${total.toLocaleString('en-IN')}${customerDetails}\n\nPlease confirm availability and delivery.`;
+    const mailBody = `Hi HAMZA,\n\nI'd like to order:\n\n${lines}\n\nTotal: ₹${total.toLocaleString('en-IN')}${customerDetails}`;
+    return {waMsg, mailBody};
+  }
+  const {waMsg, mailBody} = buildMessages();
 
   footEl.innerHTML = `
     <div class="cart-total"><span>Total</span><span>₹${total.toLocaleString('en-IN')}</span></div>
+    <div class="locate-row">
+      <button class="btn btn-outline" id="detectLocBtn" type="button">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+        Auto-detect my location
+      </button>
+      <button class="btn btn-outline" id="toggleMapBtn" type="button">Pick on map</button>
+    </div>
+    <div class="locate-status" id="locateStatus"></div>
+    <div class="map-box" id="mapBox"></div>
     <div class="checkout-form">
       <label for="checkout-name">Full name</label>
       <input id="checkout-name" type="text" autocomplete="name" placeholder="Your full name" value="${checkoutDetails.name.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">
@@ -1138,22 +1468,107 @@ function updateCartUI(){
     checkoutDetails.name = document.getElementById('checkout-name').value.trim();
     checkoutDetails.address = document.getElementById('checkout-address').value.trim();
     checkoutDetails.phone = document.getElementById('checkout-phone').value.trim();
-    setPersistentCookie('hamza_checkout', checkoutDetails);
-    const details = `\n\nCustomer details:\nName: ${checkoutDetails.name || 'Not provided'}\nAddress: ${checkoutDetails.address || 'Not provided'}\nPhone: ${checkoutDetails.phone || 'Not provided'}`;
-    const currentWaMsg = `Hi HAMZA, I'd like to order:\n\n${lines}\n\nTotal: ₹${total.toLocaleString('en-IN')}${details}\n\nPlease confirm availability and delivery.`;
-    const currentMailBody = `Hi HAMZA,\n\nI'd like to order:\n\n${lines}\n\nTotal: ₹${total.toLocaleString('en-IN')}${details}`;
-    document.querySelector('[data-checkout-link="whatsapp"]').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(currentWaMsg)}`;
-    document.querySelector('[data-checkout-link="email"]').href = `mailto:${EMAIL}?subject=${encodeURIComponent('HAMZA Watch Order')}&body=${encodeURIComponent(currentMailBody)}`;
+    saveCheckout();
+    const {waMsg:newWa, mailBody:newMail} = buildMessages();
+    document.querySelector('[data-checkout-link="whatsapp"]').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(newWa)}`;
+    document.querySelector('[data-checkout-link="email"]').href = `mailto:${EMAIL}?subject=${encodeURIComponent('HAMZA Watch Order')}&body=${encodeURIComponent(newMail)}`;
   };
   ['checkout-name','checkout-address','checkout-phone'].forEach(id => document.getElementById(id).addEventListener('input', updateCheckoutLinks));
+
+  document.getElementById('detectLocBtn').addEventListener('click', detectMyLocation);
+  document.getElementById('toggleMapBtn').addEventListener('click', ()=> openPickerMap());
 }
 updateCartUI();
+
+/* ============ GEOLOCATION + REVERSE GEOCODE + LEAFLET PICKER MAP ============ */
+let pickerMap = null, pickerMarker = null;
+const locateStatusEl = () => document.getElementById('locateStatus');
+
+async function reverseGeocode(lat, lng){
+  try{
+    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
+    if(!res.ok) throw new Error('lookup failed');
+    const data = await res.json();
+    return data && data.display_name ? data.display_name : `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+  }catch(e){
+    return `${lat.toFixed(5)}, ${lng.toFixed(5)} (approximate — please refine below)`;
+  }
+}
+
+function applyDetectedLocation(lat, lng, addressText){
+  checkoutDetails.lat = lat;
+  checkoutDetails.lng = lng;
+  checkoutDetails.address = addressText;
+  saveCheckout();
+  const addrField = document.getElementById('checkout-address');
+  if(addrField){
+    addrField.value = addressText;
+    addrField.dispatchEvent(new Event('input'));
+  }
+  if(pickerMap && pickerMarker){
+    pickerMarker.setLatLng([lat,lng]);
+    pickerMap.setView([lat,lng], 15);
+  }
+}
+
+function detectMyLocation(){
+  const statusEl = locateStatusEl();
+  if(!navigator.geolocation){
+    statusEl.textContent = 'Location detection is not supported on this device — please type your address.';
+    return;
+  }
+  statusEl.textContent = 'Detecting your location...';
+  navigator.geolocation.getCurrentPosition(async (pos)=>{
+    const {latitude, longitude} = pos.coords;
+    statusEl.textContent = 'Found you — looking up the address...';
+    const addr = await reverseGeocode(latitude, longitude);
+    applyDetectedLocation(latitude, longitude, addr);
+    statusEl.textContent = 'Location detected and address filled in. You can still edit it.';
+    openPickerMap(latitude, longitude);
+  }, (err)=>{
+    statusEl.textContent = 'Could not access your location — allow location access, or type your address / drop a pin on the map.';
+  }, {enableHighAccuracy:true, timeout:10000});
+}
+
+function openPickerMap(lat, lng){
+  const box = document.getElementById('mapBox');
+  if(!box) return;
+  box.classList.add('show');
+  const startLat = lat || checkoutDetails.lat || 28.6139;
+  const startLng = lng || checkoutDetails.lng || 77.2090;
+  if(!pickerMap){
+    pickerMap = L.map(box, {zoomControl:false}).setView([startLat, startLng], checkoutDetails.lat ? 15 : 5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:'&copy; OpenStreetMap contributors', maxZoom:19
+    }).addTo(pickerMap);
+    L.control.zoom({position:'bottomright'}).addTo(pickerMap);
+    pickerMarker = L.marker([startLat, startLng], {draggable:true}).addTo(pickerMap);
+    pickerMarker.on('dragend', async ()=>{
+      const {lat:la, lng:ln} = pickerMarker.getLatLng();
+      locateStatusEl().textContent = 'Pin moved — looking up the address...';
+      const addr = await reverseGeocode(la, ln);
+      applyDetectedLocation(la, ln, addr);
+      locateStatusEl().textContent = 'Address updated from the map pin.';
+    });
+    pickerMap.on('click', async (e)=>{
+      pickerMarker.setLatLng(e.latlng);
+      locateStatusEl().textContent = 'Pin placed — looking up the address...';
+      const addr = await reverseGeocode(e.latlng.lat, e.latlng.lng);
+      applyDetectedLocation(e.latlng.lat, e.latlng.lng, addr);
+      locateStatusEl().textContent = 'Address updated from the map pin.';
+    });
+  } else {
+    setTimeout(()=> pickerMap.invalidateSize(), 200);
+    pickerMap.setView([startLat, startLng], 15);
+    pickerMarker.setLatLng([startLat, startLng]);
+  }
+}
 
 const cartDrawer = document.getElementById('cartDrawer');
 const overlay = document.getElementById('overlay');
 document.getElementById('cartBtn').addEventListener('click', ()=>{ cartDrawer.classList.add('show'); overlay.classList.add('show'); });
 document.getElementById('cartClose').addEventListener('click', closeCart);
-overlay.addEventListener('click', closeCart);
+overlay.addEventListener('click', ()=>{ closeCart(); closeProduct(); });
 function closeCart(){ cartDrawer.classList.remove('show'); overlay.classList.remove('show'); }
 
 let toastTimer;
@@ -1204,31 +1619,195 @@ document.getElementById('flashBuyBtn').addEventListener('click', (e)=>{ e.preven
   });
 })();
 
-/* ============ HERO BACKGROUND VIDEO ============ */
+/* ============ HERO BACKGROUND VIDEO (desktop + mobile safe) ============ */
 /* Put a file named "video.mp4" in the same folder as this HTML file and it will
-   play automatically as the hero background. If it's missing or fails to load,
-   the site falls back cleanly to the dark navy gradient — nothing breaks. */
+   play automatically as the hero background, covering the frame on every screen
+   size including mobile (object-fit: cover + a mobile-tuned focal point in CSS).
+   If it's missing or fails to load, the site falls back cleanly to the dark navy
+   gradient — nothing breaks. */
 (function(){
   const v = document.getElementById('heroVideo');
   if(!v) return;
   v.addEventListener('loadeddata', ()=> v.classList.add('loaded'));
   v.addEventListener('error', ()=>{ v.style.display = 'none'; });
-  // Belt-and-braces: some browsers don't fire 'error' on the <video> when the
-  // file is simply missing — they just never load it. If nothing has loaded
-  // after a couple of seconds, hide the element so the gradient background shows.
   setTimeout(()=>{
     if(v.readyState === 0 && v.networkState !== 2){ v.style.display = 'none'; }
   }, 2500);
-  // Some browsers block autoplay before user interaction even when muted;
-  // retry on first interaction so the video still starts.
   const tryPlay = ()=> v.play().catch(()=>{});
   tryPlay();
   ['click','scroll','touchstart'].forEach(evt=>{
     window.addEventListener(evt, tryPlay, {once:true, passive:true});
   });
+  // iOS/mobile Safari sometimes needs a resize nudge after orientation change to keep cover-fit correct
+  window.addEventListener('resize', ()=>{ v.style.objectFit = 'cover'; });
 })();
 
-/* ============ REVIEWS ============ */
+/* ============ SEARCH ============ */
+function searchProducts(term){
+  const q = term.trim().toLowerCase();
+  if(!q) return [];
+  return PRODUCTS.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.brand.toLowerCase().includes(q) ||
+    p.cat.toLowerCase().includes(q) ||
+    p.desc.toLowerCase().includes(q)
+  );
+}
+function runSearchAndFilterGrid(term){
+  const q = term.trim().toLowerCase();
+  currentBrand = null;
+  document.querySelectorAll('.brand-card').forEach(c=>c.classList.remove('active'));
+  document.getElementById('brandClearWrap').style.display = 'none';
+  document.querySelectorAll('.chip[data-filter]').forEach(c=>c.classList.toggle('active', c.dataset.filter==='all'));
+  currentCategory = 'all';
+  if(!q){ renderGrid(); return; }
+  const results = searchProducts(q);
+  grid.innerHTML = results.length
+    ? results.map(productCardHTML).join('')
+    : `<div class="empty-state" style="grid-column:1/-1;">No watches match "<b>${term}</b>". Try "diver", "chrono" or a brand name.</div>`;
+  const note = document.getElementById('activeFilterNote');
+  note.style.display = 'flex';
+  note.innerHTML = `Search results for "<b>${term}</b>". <button onclick="clearAllFilters()">Clear search</button>`;
+  document.getElementById('bestsellers').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// nav search toggle + live dropdown
+const searchWrap = document.getElementById('searchWrap');
+const searchToggle = document.getElementById('searchToggle');
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+searchToggle.addEventListener('click', ()=>{
+  searchWrap.classList.toggle('open');
+  if(searchWrap.classList.contains('open')) searchInput.focus();
+  else searchResults.classList.remove('show');
+});
+searchInput.addEventListener('input', ()=>{
+  const term = searchInput.value;
+  const results = searchProducts(term);
+  if(!term.trim()){ searchResults.classList.remove('show'); return; }
+  searchResults.classList.add('show');
+  searchResults.innerHTML = results.length
+    ? results.slice(0,6).map(p=>`
+      <div class="search-result-row" onclick="openProduct('${p.id}'); searchResults.classList.remove('show');">
+        <img src="${PRODUCT_IMAGES[p.id]}" alt="${p.name}">
+        <div class="sr-info"><b>${p.name}</b><span>${p.brand} · ₹${p.price.toLocaleString('en-IN')}</span></div>
+      </div>`).join('')
+    : `<div class="search-empty">No watches found for "${term}"</div>`;
+});
+searchInput.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter'){ e.preventDefault(); runSearchAndFilterGrid(searchInput.value); searchResults.classList.remove('show'); searchWrap.classList.remove('open'); }
+});
+document.addEventListener('click', (e)=>{
+  if(!searchWrap.contains(e.target) && e.target !== searchToggle) searchResults.classList.remove('show');
+});
+
+// hero search form
+document.getElementById('heroSearchForm').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const term = document.getElementById('heroSearchInput').value;
+  runSearchAndFilterGrid(term);
+});
+
+/* ============ PRODUCT DETAIL MODAL + REVIEWS ============ */
+function getReviews(id){
+  const stored = lsGet('hamza_reviews_'+id, null);
+  if(stored) return stored;
+  const seeded = (SEED_REVIEWS[id]||[]).map(r=>({...r, userAdded:false}));
+  lsSet('hamza_reviews_'+id, seeded);
+  return seeded;
+}
+function saveReviews(id, list){ lsSet('hamza_reviews_'+id, list); }
+
+let activeProductId = null;
+const pdOverlay = document.getElementById('pdOverlay');
+const pdBody = document.getElementById('pdBody');
+
+function renderProductModal(id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  const off = Math.round((1 - p.price/p.old)*100);
+  const avg = computeAvgRating(id);
+  const reviews = getReviews(id);
+  const specsHTML = Object.entries(p.specs).map(([k,v])=>`
+    <div class="pd-spec"><div class="k">${k}</div><div class="v">${v}</div></div>
+  `).join('');
+  const reviewsHTML = [...reviews].reverse().map(r=>`
+    <div class="pd-review">
+      <div class="stars">${starString(r.rating)}</div>
+      <p>"${r.text.replace(/</g,'&lt;')}"</p>
+      <div class="who">${r.name.replace(/</g,'&lt;')}${r.userAdded ? ' · Verified Buyer' : ' · Verified Buyer'}</div>
+    </div>
+  `).join('') || `<p style="color:var(--slate); font-size:13.5px;">No reviews yet — be the first to share your experience.</p>`;
+
+  pdBody.innerHTML = `
+    <div class="pd-media"><img src="${PRODUCT_IMAGES[id]}" alt="${p.name}"></div>
+    <div class="pd-info">
+      <div class="p-cat">${p.cat}</div>
+      <span class="pd-brand-tag">${p.brand}</span>
+      <h2>${p.name}</h2>
+      <div class="p-rating"><span class="stars">${starString(avg)}</span><span>${avg.toFixed(1)} (${totalReviewCount(id)} reviews)</span></div>
+      <div class="pd-price"><span class="now">₹${p.price.toLocaleString('en-IN')}</span><span class="old">₹${p.old.toLocaleString('en-IN')}</span><span class="off">-${off}%</span></div>
+      <p class="pd-desc">${p.desc}</p>
+      <div class="pd-specs">${specsHTML}</div>
+      <div class="pd-actions">
+        <button class="btn btn-outline" onclick="addToCart('${id}')">Add to Cart</button>
+        <a class="btn btn-primary" href="${waOrderLink(p)}" target="_blank" rel="noopener">Buy on WhatsApp</a>
+      </div>
+    </div>
+    <div class="pd-reviews">
+      <h3>Customer reviews</h3>
+      <div class="pd-review-list">${reviewsHTML}</div>
+      <div class="pd-review-form">
+        <h4>Bought this watch? Leave a review.</h4>
+        <div class="star-picker" id="starPicker">
+          ${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" aria-label="${n} star">★</button>`).join('')}
+        </div>
+        <input type="text" id="reviewName" placeholder="Your name">
+        <textarea id="reviewText" placeholder="What did you think of the fit, finish and delivery?"></textarea>
+        <button class="btn btn-primary btn-block" id="submitReviewBtn" type="button">Submit Review</button>
+      </div>
+    </div>
+  `;
+
+  let chosenStars = 0;
+  const starBtns = pdBody.querySelectorAll('#starPicker button');
+  starBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      chosenStars = parseInt(btn.dataset.star,10);
+      starBtns.forEach(b=> b.classList.toggle('active', parseInt(b.dataset.star,10) <= chosenStars));
+    });
+  });
+  pdBody.querySelector('#submitReviewBtn').addEventListener('click', ()=>{
+    const name = pdBody.querySelector('#reviewName').value.trim() || 'Anonymous';
+    const text = pdBody.querySelector('#reviewText').value.trim();
+    if(!chosenStars || !text){
+      showToast('Add a star rating and a short comment first');
+      return;
+    }
+    const list = getReviews(id);
+    list.push({name, rating:chosenStars, text, userAdded:true});
+    saveReviews(id, list);
+    showToast('Thanks — your review was saved');
+    renderProductModal(id);
+    renderGrid();
+    renderSales();
+  });
+}
+
+function openProduct(id){
+  activeProductId = id;
+  renderProductModal(id);
+  pdOverlay.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeProduct(){
+  pdOverlay.classList.remove('show');
+  document.body.style.overflow = '';
+}
+document.getElementById('pdClose').addEventListener('click', closeProduct);
+pdOverlay.addEventListener('click', (e)=>{ if(e.target === pdOverlay) closeProduct(); });
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeProduct(); });
+
+/* ============ REVIEWS (homepage strip) ============ */
 const REVIEWS = [
   {name:'Rohit Sharma', init:'RS', text:'The Abyss Diver looks and feels far more expensive than what I paid. Ordering on WhatsApp was quicker than any app checkout I have used.', rating:5, color:'#1A73E8'},
   {name:'Ayesha Khan', init:'AK', text:'Bought the Regent Classic for my husband — the box, the weight, the finish, all felt premium. Delivery was 3 days, cash on delivery worked perfectly.', rating:5, color:'#C9A961'},
@@ -1255,6 +1834,8 @@ const FAQS = [
   {q:'What is the warranty?', a:'Every HAMZA watch ships with a 2-year warranty covering the movement and case. Straps and glass are covered for manufacturing defects for 6 months.'},
   {q:'How long does delivery take?', a:'Orders typically ship within 48 hours and arrive within 3–6 business days depending on your location.'},
   {q:'Can I return a watch?', a:'Yes — unworn watches in original packaging can be returned within 14 days of delivery. Message us on WhatsApp to start a return.'},
+  {q:'Can I set my delivery address automatically?', a:'Yes — open the cart and tap "Auto-detect my location". We use your device\'s GPS to fill in your address, and you can fine-tune it by dragging the pin on the map.'},
+  {q:'Do you sell watches from more than one HAMZA line?', a:'Yes — Hamza Marine, Hamza Chrono, Hamza Heritage and Hamza Field are our four in-house lines. Use the Brands section to browse a single line at a time.'},
 ];
 document.getElementById('faqList').innerHTML = FAQS.map((f,i)=>`
   <div class="faq-item reveal in">
@@ -1279,8 +1860,6 @@ const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
 }, {threshold:0, rootMargin:'0px 0px -8% 0px'});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-// Fallback: if any reveal element hasn't animated in after 2.5s (fast-scroll, anchor jump,
-// reduced-motion, or a slow observer callback), force it visible so nothing is ever stuck hidden.
 setTimeout(()=>{ document.querySelectorAll('.reveal:not(.in)').forEach(el=>el.classList.add('in')); }, 2500);
 </script>
 </body>
